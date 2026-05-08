@@ -3,7 +3,7 @@ import { useWeatherAPIService } from "./hooks/useWeatherAPIService.js";
 
 function App() {
   const [count, setCount] = useState(0);
-  const weatherApiService = useWeatherAPIService();
+  const weatherData = useWeatherAPIService();
 
   return (
     <>
