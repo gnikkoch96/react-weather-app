@@ -22,15 +22,16 @@ async function callWeatherAPI(url: string) {
     }
 
     const result = await response.json();
-    return result;
+    return {result, error: null};
   } catch (error: any) {
-    console.log(error.message);
+    console.error(error.message);
+    return { error: error.message };
   }
-
-  return null;
 }
 
 export function useWeatherAPIService(locationData?: LocationData) {
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
   useEffect(() => {
@@ -38,22 +39,32 @@ export function useWeatherAPIService(locationData?: LocationData) {
       "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,relative_humidity_2m,is_day,wind_speed_10m&timezone=America%2FLos_Angeles";
 
     const fetchWeatherData = async () => {
+      setIsLoading(true);
+
       const data = await callWeatherAPI(url);
 
-      const wData: WeatherData = {
-        time: data.current.time,
-        interval: data.current.interval,
-        temperature: data.current.temperature_2m,
-        relative_humidity: data.current.relative_humidity_2m,
-        is_day: data.current.is_day,
-        wind_speed: data.current.wind_speed_10m   
+      // error handling: no data no continue
+      if (data.error) {
+        setError(data.error);
+        setIsLoading(false);
+        return;
       }
 
+      const wData: WeatherData = {
+        time: data.result.current.time,
+        interval: data.result.current.interval,
+        temperature: data.result.current.temperature_2m,
+        relative_humidity: data.result.current.relative_humidity_2m,
+        is_day: data.result.current.is_day,
+        wind_speed: data.result.current.wind_speed_10m,
+      };
+
       setWeatherData(wData);
+      setIsLoading(false);
     };
 
     fetchWeatherData();
   }, []);
 
-  return weatherData;
+  return { error, isLoading, weatherData };
 }
