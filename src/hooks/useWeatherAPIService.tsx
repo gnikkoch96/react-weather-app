@@ -1,17 +1,5 @@
 import { useState, useEffect } from "react";
-
-type LocationData = {
-  location: string;
-};
-
-type WeatherData = {
-  interval: number;
-  is_day: number;
-  relative_humidity: number;
-  temperature: number;
-  time: number;
-  wind_speed: number;
-};
+import type { LocationData, WeatherData } from "../../types/weather/types.js";
 
 async function callWeatherAPI(url: string) {
   try {
