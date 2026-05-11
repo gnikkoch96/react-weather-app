@@ -1,4 +1,4 @@
-import { useState } from "react";
+import WeatherCard from "./components/WeatherCard.js";
 import { useWeatherAPIService } from "./hooks/useWeatherAPIService.js";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
         {isLoading ? (
           "Loading..."
         ) : weatherData ? (
-          
+          <WeatherCard weatherData={weatherData}/>
         ) : (
           error
         )}
