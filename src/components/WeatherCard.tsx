@@ -2,7 +2,7 @@ import type { WeatherData } from "../../types/weather/types.js"
 
 export default function WeatherCard({weatherData} : {weatherData: WeatherData}){
     return (
-        <div>
+        <div className="">
             <p>{weatherData.temperature}</p>
             <p>{weatherData.time}</p>
             <p>{weatherData.relative_humidity}</p>
@@ -10,3 +10,4 @@ export default function WeatherCard({weatherData} : {weatherData: WeatherData}){
         </div>
     )
 }
+

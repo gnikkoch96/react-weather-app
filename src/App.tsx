@@ -4,17 +4,15 @@ import { useWeatherAPIService } from "./hooks/useWeatherAPIService.js";
 function App() {
   const { error, isLoading, weatherData } = useWeatherAPIService();
   return (
-    <>
-      <p>
-        {isLoading ? (
-          "Loading..."
-        ) : weatherData ? (
-          <WeatherCard weatherData={weatherData}/>
-        ) : (
-          error
-        )}
-      </p>
-    </>
+    <div className="min-h-screen bg-blue-400">
+      {isLoading ? (
+        "Loading..."
+      ) : weatherData ? (
+        <WeatherCard weatherData={weatherData} />
+      ) : (
+        error
+      )}
+    </div>
   );
 }
 
