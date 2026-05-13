@@ -9,4 +9,5 @@ export type WeatherData = {
   temperature: number;
   time: number;
   wind_speed: number;
+  weather_code: number;
 };
