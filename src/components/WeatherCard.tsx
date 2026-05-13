@@ -1,5 +1,5 @@
 import type { WeatherData } from "../../types/weather/types.js";
-import { createLucideIcon, Droplet, Wind } from "lucide-react";
+import {Droplet, Wind } from "lucide-react";
 
 export default function WeatherCard({
   weatherData,
