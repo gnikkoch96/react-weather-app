@@ -1,5 +1,20 @@
 import type { WeatherData } from "../../types/weather/types.js";
-import {Droplet, Wind } from "lucide-react";
+import {
+  Droplet,
+  Wind,
+  Sun,
+  CloudSun,
+  Cloud,
+  CloudFog,
+  CloudDrizzle,
+  CloudRain,
+  CloudRainWind,
+  Snowflake,
+  CloudSnow,
+  CloudHail,
+  CloudLightning,
+  ThermometerSnowflake,
+} from "lucide-react";
 
 export default function WeatherCard({
   weatherData,
@@ -13,11 +28,11 @@ export default function WeatherCard({
       <p className="text-6xl">{weatherData.temperature} C</p>
       <div className="flex justify-between text-2xl">
         <div className="flex justify-center items-center">
-          <Droplet /> 
+          <Droplet />
           Relative Humidity {weatherData.relative_humidity} mm
         </div>
         <div className="flex justify-center items-center">
-          <Wind /> 
+          <Wind />
           Wind Speed {weatherData.wind_speed} km/h
         </div>
       </div>
