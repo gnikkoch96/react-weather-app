@@ -14,11 +14,11 @@ export default function WeatherCard({
       <div className="flex justify-between text-2xl">
         <div className="flex justify-center items-center">
           <Droplet /> 
-          Relative Humidity {weatherData.relative_humidity}
+          Relative Humidity {weatherData.relative_humidity} mm
         </div>
         <div className="flex justify-center items-center">
           <Wind /> 
-          Wind Speed {weatherData.wind_speed}
+          Wind Speed {weatherData.wind_speed} km/h
         </div>
       </div>
     </div>
