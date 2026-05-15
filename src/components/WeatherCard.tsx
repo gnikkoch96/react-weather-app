@@ -47,10 +47,6 @@ const WEATHER_CODE_TO_ICON: Record<number, React.ReactNode> = {
   99: <CloudLightning />,
 }
 
-function loadWeatherIcon(weatherCode: number){
-    
-}
-
 export default function WeatherCard({
   weatherData,
 }: {
