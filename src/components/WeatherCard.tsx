@@ -53,7 +53,7 @@ export default function WeatherCard({
   weatherData: WeatherData;
 }) {
   return (
-    <div className="max-w-md flex flex-col justify-between p-4 rounded shadow-sm bg-blue-300">
+    <div className="max-w-md flex flex-col justify-between p-4 rounded shadow-sm bg-linear-to-r from-blue-600 to-blue-400 text-white">
       <p>{weatherData.time}</p>
       <div>
         {WEATHER_CODE_TO_ICON[weatherData.weather_code]}
