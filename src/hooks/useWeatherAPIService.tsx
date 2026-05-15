@@ -24,7 +24,7 @@ export function useWeatherAPIService(locationData?: LocationData) {
 
   useEffect(() => {
     const url =
-      "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,relative_humidity_2m,is_day,wind_speed_10m,weather_code&timezone=America%2FLos_Angeles";
+      "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,relative_humidity_2m,is_day,wind_speed_10m,weather_code&timezone=America%2FLos_Angeles&temperature_unit=fahrenheit";
 
     const fetchWeatherData = async () => {
       setIsLoading(true);
