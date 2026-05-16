@@ -16,7 +16,7 @@ import {
   ThermometerSnowflake,
 } from "lucide-react";
 
-const WEATHER_ICON_SIZE = 64
+const WEATHER_ICON_SIZE = 256
 const WEATHER_CODE_TO_ICON: Record<number, React.ReactNode> = {
   0: <Sun size={WEATHER_ICON_SIZE}/>,
   1: <CloudSun size={WEATHER_ICON_SIZE}/>,
