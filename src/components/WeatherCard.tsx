@@ -60,16 +60,16 @@ export default function WeatherCard({
         {WEATHER_CODE_TO_ICON[weatherData.weather_code]}
         <p className="text-5xl">{weatherData.temperature} <span>&#176;</span>F</p>
       </div>
-      <div className="flex justify-between text-2xl">
-        <div className="flex justify-center items-center">
-          <Droplet />
-          Relative Humidity {weatherData.relative_humidity} mm
+      <div className="flex justify-between text-2xl gap-6">
+        <div className="flex flex-col justify-start">
+          <p className="flex items-center"><Droplet /> Relative Humidity</p>
+          <p>{weatherData.relative_humidity} mm</p>
         </div>
-        <div className="flex justify-center items-center">
-          <Wind />
-          Wind Speed {weatherData.wind_speed} km/h
+        <div className="flex flex-col justify-start">
+          <p className="flex items-center"><Wind /> Wind Speed</p>
+          <p>{weatherData.wind_speed} km/h</p>
         </div>
-      </div>
+      </div>  
     </div>
   );
 }
