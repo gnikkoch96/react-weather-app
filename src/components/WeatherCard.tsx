@@ -56,9 +56,9 @@ export default function WeatherCard({
   return (
     <div className="max-w-md flex flex-col justify-between p-4 rounded shadow-sm bg-linear-to-r from-blue-600 to-blue-400 text-white">
       <p>{weatherData.time}</p>
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center gap-2.5 mb-8">
         {WEATHER_CODE_TO_ICON[weatherData.weather_code]}
-        <p className="text-6xl">{weatherData.temperature} <span>&#176;</span>F</p>
+        <p className="text-5xl">{weatherData.temperature} <span>&#176;</span>F</p>
       </div>
       <div className="flex justify-between text-2xl">
         <div className="flex justify-center items-center">
