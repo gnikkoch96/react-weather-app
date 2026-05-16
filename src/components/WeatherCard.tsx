@@ -62,12 +62,12 @@ export default function WeatherCard({
       </div>
       <div className="flex justify-between text-2xl gap-6">
         <div className="flex flex-col justify-start">
-          <p className="flex items-center"><Droplet /> Relative Humidity</p>
-          <p>{weatherData.relative_humidity} mm</p>
+          <p className="flex items-center gap-2"><Droplet /> Relative Humidity</p>
+          <p className='ml-8'>{weatherData.relative_humidity} mm</p>
         </div>
         <div className="flex flex-col justify-start">
-          <p className="flex items-center"><Wind /> Wind Speed</p>
-          <p>{weatherData.wind_speed} km/h</p>
+          <p className="flex items-center gap-2"><Wind /> Wind Speed</p>
+          <p className='ml-8'>{weatherData.wind_speed} km/h</p>
         </div>
       </div>  
     </div>
