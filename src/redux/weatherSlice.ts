@@ -7,7 +7,7 @@ const initialState = {
 }
 
 const weatherSlice = createSlice({
-    name: 'weather_config',
+    name: 'weatherConfig',
     initialState, 
 
     reducers: {
