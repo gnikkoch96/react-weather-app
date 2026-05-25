@@ -3,7 +3,7 @@ import {createSlice, type PayloadAction} from '@reduxjs/toolkit';
 // intialize the state for the slice
 const initialState = {
     temperatureUnit: 'fahrenheit', // celcius is default in the api
-    speedUnit: '' // kmh is by default in the api
+    speedUnit: 'kmh' // kmh is by default in the api
 }
 
 const weatherSlice = createSlice({
