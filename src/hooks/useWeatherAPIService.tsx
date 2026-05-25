@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import type { LocationData, WeatherData } from "../../types/weather/types.js";
+import { useAppSelector } from "./useAppSelector.js";
 
 async function callWeatherAPI(url: string) {
   try {
@@ -17,10 +18,14 @@ async function callWeatherAPI(url: string) {
   }
 }
 
+/* TODO - update url to use the config that's stored in the redux store (weatherSlice) */
 export function useWeatherAPIService(locationData?: LocationData) {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+
+  const temperatureUnit = useAppSelector((state) => state.weatherConfig.temperatureUnit);
+
 
   useEffect(() => {
     const url =
