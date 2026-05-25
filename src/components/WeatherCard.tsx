@@ -15,13 +15,14 @@ import {
   CloudLightning,
   ThermometerSnowflake,
 } from "lucide-react";
+import { useAppSelector } from "../hooks/useAppSelector.js";
 
-const WEATHER_ICON_SIZE = 256
+const WEATHER_ICON_SIZE = 256;
 const WEATHER_CODE_TO_ICON: Record<number, React.ReactNode> = {
-  0: <Sun size={WEATHER_ICON_SIZE}/>,
-  1: <CloudSun size={WEATHER_ICON_SIZE}/>,
-  2: <CloudSun size={WEATHER_ICON_SIZE}/>,
-  3: <Cloud size={WEATHER_ICON_SIZE}/>,
+  0: <Sun size={WEATHER_ICON_SIZE} />,
+  1: <CloudSun size={WEATHER_ICON_SIZE} />,
+  2: <CloudSun size={WEATHER_ICON_SIZE} />,
+  3: <Cloud size={WEATHER_ICON_SIZE} />,
   45: <CloudFog size={WEATHER_ICON_SIZE} />,
   48: <CloudFog size={WEATHER_ICON_SIZE} />,
   51: <CloudDrizzle size={WEATHER_ICON_SIZE} />,
@@ -46,30 +47,39 @@ const WEATHER_CODE_TO_ICON: Record<number, React.ReactNode> = {
   95: <CloudLightning size={WEATHER_ICON_SIZE} />,
   96: <CloudLightning size={WEATHER_ICON_SIZE} />,
   99: <CloudLightning size={WEATHER_ICON_SIZE} />,
-}  
+};
 
 export default function WeatherCard({
   weatherData,
 }: {
   weatherData: WeatherData;
 }) {
+  const temperatureUnit = useAppSelector((state) => state.weatherConfig.temperatureUnit);
+  const speedUnit = useAppSelector((state) => state.weatherConfig.speedUnit);
+
   return (
     <div className="max-w-md flex flex-col items-center p-4 rounded shadow-sm bg-linear-to-r from-blue-600 to-blue-400 text-white">
-      <p className='mb-1'>{new Date(weatherData.time).toLocaleString()}</p>
+      <p className="mb-1">{new Date(weatherData.time).toLocaleString()}</p>
       <div className="flex flex-col justify-center items-center gap-2.5 mb-8">
         {WEATHER_CODE_TO_ICON[weatherData.weather_code]}
-        <p className="text-5xl">{weatherData.temperature} <span>&#176;</span>F</p>
+        <p className="text-5xl">
+          {weatherData.temperature} <span>&#176;</span>{temperatureUnit == 'fahrenheit' ? 'F' : 'C'}
+        </p>
       </div>
       <div className="flex justify-between text-2xl gap-6">
         <div className="flex flex-col justify-start">
-          <p className="flex items-center gap-2"><Droplet /> Relative Humidity</p>
-          <p className='ml-8'>{weatherData.relative_humidity} mm</p>
+          <p className="flex items-center gap-2">
+            <Droplet /> Relative Humidity
+          </p>
+          <p className="ml-8">{weatherData.relative_humidity} mm</p>
         </div>
         <div className="flex flex-col justify-start">
-          <p className="flex items-center gap-2"><Wind /> Wind Speed</p>
-          <p className='ml-8'>{weatherData.wind_speed} km/h</p>
+          <p className="flex items-center gap-2">
+            <Wind /> Wind Speed
+          </p>
+          <p className="ml-8">{weatherData.wind_speed} {speedUnit}</p>
         </div>
-      </div>  
+      </div>
     </div>
   );
 }
