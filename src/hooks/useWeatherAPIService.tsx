@@ -18,18 +18,17 @@ async function callWeatherAPI(url: string) {
   }
 }
 
-/* TODO - update url to use the config that's stored in the redux store (weatherSlice) */
 export function useWeatherAPIService(locationData?: LocationData) {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
   const temperatureUnit = useAppSelector((state) => state.weatherConfig.temperatureUnit);
-
+  const speedUnit = useAppSelector((state) => state.weatherConfig.speedUnit);
 
   useEffect(() => {
     const url =
-      "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,relative_humidity_2m,is_day,wind_speed_10m,weather_code&timezone=America%2FLos_Angeles&temperature_unit=fahrenheit";
+      `https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,relative_humidity_2m,is_day,wind_speed_10m,weather_code&timezone=America%2FLos_Angeles&temperature_unit=${temperatureUnit}&wind_speed_unit=${speedUnit}`;
 
     const fetchWeatherData = async () => {
       setIsLoading(true);
