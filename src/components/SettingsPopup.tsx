@@ -23,7 +23,11 @@ export default function SettingsPopup({ className }: { className?: string }) {
           </select>
         </label>
       </div>
-      <div>{/* Save or Exit */}</div>
+      <div>
+        {/* Save or Exit */}
+        <button>Exit</button>
+        <button>Save</button>
+      </div>
     </div>
   );
 }
