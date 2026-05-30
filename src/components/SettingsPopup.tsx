@@ -25,7 +25,7 @@ export default function SettingsPopup({ className }: { className?: string }) {
             <option value={"kn"}>Knots</option>
           </select>
         </label>
-        <div className="flex justify-between">
+        <div className="flex justify-around">
           {/* Save or Exit */}
           <button>Exit</button>
           <button>Save</button>
