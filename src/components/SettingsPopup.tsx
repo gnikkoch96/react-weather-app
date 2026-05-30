@@ -4,7 +4,7 @@ export default function SettingsPopup({ className }: { className?: string }) {
   return (
     <div className="absolute min-w-screen min-h-screen flex justify-center items-center bg-transparent backdrop-blur-xs">
       {/* Settings Card */}
-      <div className="p-4 text-2xl shadow-2xl rounded border bg-blue-400 text-white">
+      <div className="flex flex-col gap-4 p-4 text-2xl shadow-2xl rounded border bg-blue-400 text-white">
         <button className="cursor-pointer w-full flex justify-end "><X size={16}/></button>
 
         {/* Temperature */}
@@ -27,8 +27,8 @@ export default function SettingsPopup({ className }: { className?: string }) {
         </label>
         <div className="flex justify-around">
           {/* Save or Exit */}
-          <button>Exit</button>
-          <button>Save</button>
+          <button className="cursor-pointer rounded border px-4 shadow bg-red-400">Exit</button>
+          <button className="cursor-pointer rounded border px-4 shadow bg-green-400">Save</button>
         </div>
       </div>
     </div>
