@@ -1,8 +1,11 @@
 import { X } from "lucide-react";
+import { useAppSelector } from "../hooks/useAppSelector.js";
 
-export default function SettingsPopup({ isVisible, className }: { isVisible: boolean, className?: string }) {
+export default function SettingsPopup({className }: {className?: string }) {
+  const isVisible = useAppSelector((state) => state.settingsConfig.isVisible);
+
   if(!isVisible) return null;
-  
+
   return (
     <div className="absolute min-w-screen min-h-screen flex justify-center items-center bg-transparent backdrop-blur-xs">
       {/* Settings Card */}

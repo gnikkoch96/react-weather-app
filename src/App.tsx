@@ -6,12 +6,11 @@ import { useAppSelector } from "./hooks/useAppSelector.js";
 
 function App() {
   const { error, isLoading, weatherData } = useWeatherAPIService();
-  const isSettingsVisible = useAppSelector((state) => state.settingsConfig.isVisible);
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-blue-800">
       <SettingsButton/>
-      <SettingsPopup isVisible={isSettingsVisible}/>
+      <SettingsPopup/>
       {isLoading ? (
         "Loading..."
       ) : weatherData ? (
