@@ -1,6 +1,6 @@
 import { X } from "lucide-react";
 
-export default function SettingsPopup({ className }: { className?: string }) {
+export default function SettingsPopup({ isVisible, className }: { isVisible: boolean, className?: string }) {
   return (
     <div className="absolute min-w-screen min-h-screen flex justify-center items-center bg-transparent backdrop-blur-xs">
       {/* Settings Card */}
