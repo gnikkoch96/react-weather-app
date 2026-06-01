@@ -10,7 +10,6 @@ function App() {
   return (
     <div className="min-h-screen flex justify-center items-center bg-blue-800">
       <SettingsButton/>
-      <SettingsPopup/>
       {isLoading ? (
         "Loading..."
       ) : weatherData ? (
@@ -18,7 +17,9 @@ function App() {
       ) : (
         error
       )}
+      <SettingsPopup/>
     </div>
+    
   );
 }
 
