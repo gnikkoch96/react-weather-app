@@ -1,23 +1,30 @@
 import { X } from "lucide-react";
 import { useAppSelector } from "../hooks/useAppSelector.js";
+import { useDispatch } from "react-redux";
+import { setIsVisible } from "../redux/settingsSlice.js";
 
-export default function SettingsPopup({className }: {className?: string }) {
+export default function SettingsPopup({ className }: { className?: string }) {
   const isVisible = useAppSelector((state) => state.settingsConfig.isVisible);
+  const dispatch = useDispatch();
 
-  if(!isVisible) return null;
+  if (!isVisible) return null;
 
   return (
     <div className="absolute min-w-screen min-h-screen flex justify-center items-center bg-transparent backdrop-blur-xs">
       {/* Settings Card */}
       <div className="flex flex-col gap-4 p-4 text-2xl shadow-2xl rounded border bg-white">
+        {/* Settings Label and X button */}
         <div className="w-full flex justify-between">
           <span>Settings</span>
-          <button className="cursor-pointer">
+          <button
+            onClick={() => dispatch(setIsVisible(false))}
+            className="cursor-pointer"
+          >
             <X className="" size={24} />
           </button>
         </div>
 
-        {/* Temperature */}
+        {/* Temperature Unit */}
         <label className="flex gap-2">
           <span className="flex-1/2">Temperature Unit:</span>
           <select
@@ -29,7 +36,8 @@ export default function SettingsPopup({className }: {className?: string }) {
             <option value={"celcius"}>Celcius</option>
           </select>
         </label>
-        {/* Speed */}
+
+        {/* Speed Unit */}
         <label className="flex">
           <span className="flex-1/4">Speed Unit:</span>
           <select
@@ -43,9 +51,14 @@ export default function SettingsPopup({className }: {className?: string }) {
             <option value={"kn"}>Knots</option>
           </select>
         </label>
+
+        {/* Action Buttons */}
         <div className="flex justify-around gap-1">
           {/* Save or Exit */}
-          <button className="cursor-pointer rounded px-4 flex-1 bg-gray-300">
+          <button
+            className="cursor-pointer rounded px-4 flex-1 bg-gray-300"
+            onClick={() => dispatch(setIsVisible(false))}
+          >
             Exit
           </button>
           <button className="cursor-pointer rounded px-4 flex-1 bg-linear-to-r from-blue-600 to-blue-400 text-white">
