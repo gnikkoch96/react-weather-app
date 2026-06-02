@@ -11,3 +11,7 @@ export type WeatherData = {
   wind_speed: number;
   weather_code: number;
 };
+
+export type TemperatureUnit = 'farenheit' | 'celcius';
+
+export type SpeedUnit = 'kmh' | 'm/s' | 'mph' | 'knots';
