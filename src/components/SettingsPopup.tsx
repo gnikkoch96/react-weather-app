@@ -65,6 +65,7 @@ export default function SettingsPopup({ className }: { className?: string }) {
             className="border px-1 border-gray-300 rounded"
             name="speed-unit"
             id=""
+            onChange={handleSpeedUnitChange}
           >
             <option value="kmh">km/h</option>
             <option value="ms">m/s</option>
