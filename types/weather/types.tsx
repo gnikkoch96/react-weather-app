@@ -14,4 +14,4 @@ export type WeatherData = {
 
 export type TemperatureUnit = 'farenheit' | 'celcius';
 
-export type SpeedUnit = 'kmh' | 'm/s' | 'mph' | 'knots';
+export type SpeedUnit = 'kmh' | 'm/s' | 'mph' | 'kn';
