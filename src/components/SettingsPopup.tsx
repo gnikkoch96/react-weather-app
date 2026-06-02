@@ -2,12 +2,26 @@ import { X } from "lucide-react";
 import { useAppSelector } from "../hooks/useAppSelector.js";
 import { useDispatch } from "react-redux";
 import { setIsVisible } from "../redux/settingsSlice.js";
+import { setTemperatureUnit } from "../redux/weatherSlice.js";
+import { useState } from "react";
+import type { SpeedUnit, TemperatureUnit } from "../../types/weather/types.js";
 
 export default function SettingsPopup({ className }: { className?: string }) {
   const isVisible = useAppSelector((state) => state.settingsConfig.isVisible);
-  const dispatch = useDispatch();
 
   if (!isVisible) return null;
+
+  const dispatch = useDispatch();
+  const [temperatureUnit, setTemperatureUnit] =
+    useState<TemperatureUnit>("farenheit");
+  const [speedUnit, setSpeedUnit] = useState<SpeedUnit>("kmh");
+
+  const handleTemperatureUnitChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const temperatureUnitChanged = event.target.value;
+    if(temperatureUnitChanged === 'farenheit' || temperatureUnitChanged === 'celcius')
+      setTemperatureUnit(temperatureUnitChanged);
+  };
+
 
   return (
     <div className="absolute min-w-screen min-h-screen flex justify-center items-center bg-transparent backdrop-blur-xs">
@@ -31,9 +45,10 @@ export default function SettingsPopup({ className }: { className?: string }) {
             className="border px-1 border-gray-500 rounded"
             name="temperature-unit"
             id=""
+            onChange={handleTemperatureUnitChange}
           >
-            <option value={"farenheit"}>Farenheit</option>
-            <option value={"celcius"}>Celcius</option>
+            <option value="farenheit">Farenheit</option>
+            <option value="celcius">Celcius</option>
           </select>
         </label>
 
@@ -45,10 +60,10 @@ export default function SettingsPopup({ className }: { className?: string }) {
             name="speed-unit"
             id=""
           >
-            <option value={"kmh"}>km/h</option>
-            <option value={"ms"}>m/s</option>
-            <option value={"mph"}>mph</option>
-            <option value={"kn"}>Knots</option>
+            <option value="kmh">km/h</option>
+            <option value="ms">m/s</option>
+            <option value="mph">mph</option>
+            <option value="kn">Knots</option>
           </select>
         </label>
 
@@ -61,7 +76,12 @@ export default function SettingsPopup({ className }: { className?: string }) {
           >
             Exit
           </button>
-          <button className="cursor-pointer rounded px-4 flex-1 bg-linear-to-r from-blue-600 to-blue-400 text-white">
+          <button
+            className="cursor-pointer rounded px-4 flex-1 bg-linear-to-r from-blue-600 to-blue-400 text-white"
+            onClick={() => {
+              // dispatch(setTemperatureUnit(temperatureUnit));
+            }}
+          >
             Save
           </button>
         </div>
