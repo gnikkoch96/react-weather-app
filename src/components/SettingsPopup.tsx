@@ -20,7 +20,7 @@ export default function SettingsPopup({ className }: { className?: string }) {
     event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     const value = event.target.value;
-    if (value === "farenheit" || value === "celcius") setTemperatureUnit(value);
+    if (value === "farenheit" || value === "celcius") setCurrentTemperatureUnit(value);
   };
 
   const handleSpeedUnitChange = (
@@ -28,7 +28,7 @@ export default function SettingsPopup({ className }: { className?: string }) {
   ) => {
     const value = event.target.value;
     if (value === "kmh" || value === "m/s" || value === "mph" || value === "kn")
-      setSpeedUnit(value);
+      setCurrentSpeedUnit(value);
   };
 
   return (
