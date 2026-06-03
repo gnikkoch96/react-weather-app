@@ -1,4 +1,5 @@
 import {createSlice, type PayloadAction} from '@reduxjs/toolkit';
+import type { TemperatureUnit, SpeedUnit } from '../../types/weather/types.js';
 
 // intialize the state for the slice
 const initialState = {
@@ -11,11 +12,11 @@ const weatherSlice = createSlice({
     initialState, 
 
     reducers: {
-        setTemperatureUnit: (state, action: PayloadAction<any>) => {
+        setTemperatureUnit: (state, action: PayloadAction<TemperatureUnit>) => {
             state.temperatureUnit = action.payload;
         },
 
-        setSpeedUnit: (state, action: PayloadAction<any>) => {
+        setSpeedUnit: (state, action: PayloadAction<SpeedUnit>) => {
             state.speedUnit = action.payload
         }
     }
