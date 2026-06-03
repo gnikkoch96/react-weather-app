@@ -7,27 +7,29 @@ import { useState } from "react";
 import type { SpeedUnit, TemperatureUnit } from "../../types/weather/types.js";
 
 export default function SettingsPopup({ className }: { className?: string }) {
-  const isVisible = useAppSelector((state) => state.settingsConfig.isVisible);
-
-  if (!isVisible) return null;
-
-  const dispatch = useDispatch();
   const [temperatureUnit, setTemperatureUnit] =
     useState<TemperatureUnit>("farenheit");
   const [speedUnit, setSpeedUnit] = useState<SpeedUnit>("kmh");
 
-  const handleTemperatureUnitChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const isVisible = useAppSelector((state) => state.settingsConfig.isVisible);
+  const dispatch = useDispatch();
+  
+  if (!isVisible) return null;
+
+  const handleTemperatureUnitChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
     const value = event.target.value;
-    if(value === 'farenheit' || value === 'celcius')
-      setTemperatureUnit(value);
+    if (value === "farenheit" || value === "celcius") setTemperatureUnit(value);
   };
 
-  const handleSpeedUnitChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSpeedUnitChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
     const value = event.target.value;
-    if(value === 'kmh' || value === 'm/s' || value === 'mph' || value === 'kn')
+    if (value === "kmh" || value === "m/s" || value === "mph" || value === "kn")
       setSpeedUnit(value);
-  }
-
+  };
 
   return (
     <div className="absolute min-w-screen min-h-screen flex justify-center items-center bg-transparent backdrop-blur-xs">
