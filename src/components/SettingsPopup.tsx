@@ -7,9 +7,9 @@ import { useState } from "react";
 import type { SpeedUnit, TemperatureUnit } from "../../types/weather/types.js";
 
 export default function SettingsPopup({ className }: { className?: string }) {
-  const [temperatureUnit, setTemperatureUnit] =
+  const [currentTemperatureUnit, setCurrentTemperatureUnit] =
     useState<TemperatureUnit>("farenheit");
-  const [speedUnit, setSpeedUnit] = useState<SpeedUnit>("kmh");
+  const [currentSpeedUnit, setCurrentSpeedUnit] = useState<SpeedUnit>("kmh");
 
   const isVisible = useAppSelector((state) => state.settingsConfig.isVisible);
   const dispatch = useDispatch();
@@ -88,7 +88,7 @@ export default function SettingsPopup({ className }: { className?: string }) {
           <button
             className="cursor-pointer rounded px-4 flex-1 bg-linear-to-r from-blue-600 to-blue-400 text-white"
             onClick={() => {
-              // dispatch(setTemperatureUnit(temperatureUnit));
+              dispatch(setTemperatureUnit());
             }}
           >
             Save
