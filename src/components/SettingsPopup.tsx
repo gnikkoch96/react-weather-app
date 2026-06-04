@@ -2,25 +2,36 @@ import { X } from "lucide-react";
 import { useAppSelector } from "../hooks/useAppSelector.js";
 import { useDispatch } from "react-redux";
 import { setIsVisible } from "../redux/settingsSlice.js";
-import { setTemperatureUnit } from "../redux/weatherSlice.js";
-import { useState } from "react";
+import { setSpeedUnit, setTemperatureUnit } from "../redux/weatherSlice.js";
+import { useState, useEffect } from "react";
 import type { SpeedUnit, TemperatureUnit } from "../../types/weather/types.js";
 
 export default function SettingsPopup({ className }: { className?: string }) {
-  const [currentTemperatureUnit, setCurrentTemperatureUnit] =
-    useState<TemperatureUnit>("farenheit");
-  const [currentSpeedUnit, setCurrentSpeedUnit] = useState<SpeedUnit>("kmh");
-
   const isVisible = useAppSelector((state) => state.settingsConfig.isVisible);
   const dispatch = useDispatch();
+
+  const globalTemperatureUnit = useAppSelector((state) => state.weatherConfig.temperatureUnit);
+  const globalSpeedUnit = useAppSelector((state) => state.weatherConfig.speedUnit);
   
+  const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState<TemperatureUnit>(globalTemperatureUnit);
+  const [currentSpeedUnit, setCurrentSpeedUnit] = useState<SpeedUnit>(globalSpeedUnit);
+
+  useEffect(() => {
+    setCurrentTemperatureUnit(globalTemperatureUnit);
+  }, [globalTemperatureUnit])
+
+  
+  useEffect(() => {
+    setCurrentSpeedUnit(globalSpeedUnit);
+  }, [globalSpeedUnit])
+
   if (!isVisible) return null;
 
   const handleTemperatureUnitChange = (
     event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     const value = event.target.value;
-    if (value === "farenheit" || value === "celcius") setCurrentTemperatureUnit(value);
+    if (value === "fahrenheit" || value === "celcius") setCurrentTemperatureUnit(value);
   };
 
   const handleSpeedUnitChange = (
@@ -54,8 +65,9 @@ export default function SettingsPopup({ className }: { className?: string }) {
             name="temperature-unit"
             id=""
             onChange={handleTemperatureUnitChange}
+            value={currentTemperatureUnit}
           >
-            <option value="farenheit">Farenheit</option>
+            <option value="fahrenheit">Farenheit</option>
             <option value="celcius">Celcius</option>
           </select>
         </label>
@@ -68,9 +80,10 @@ export default function SettingsPopup({ className }: { className?: string }) {
             name="speed-unit"
             id=""
             onChange={handleSpeedUnitChange}
+            value={currentSpeedUnit}
           >
             <option value="kmh">km/h</option>
-            <option value="ms">m/s</option>
+            <option value="m/s">m/s</option>
             <option value="mph">mph</option>
             <option value="kn">Knots</option>
           </select>
@@ -88,7 +101,9 @@ export default function SettingsPopup({ className }: { className?: string }) {
           <button
             className="cursor-pointer rounded px-4 flex-1 bg-linear-to-r from-blue-600 to-blue-400 text-white"
             onClick={() => {
-              dispatch(setTemperatureUnit());
+              dispatch(setTemperatureUnit(currentTemperatureUnit));
+              dispatch(setSpeedUnit(currentSpeedUnit));
+              dispatch(setIsVisible(false));
             }}
           >
             Save
