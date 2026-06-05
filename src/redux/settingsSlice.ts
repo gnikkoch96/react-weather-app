@@ -5,7 +5,7 @@ const initialState = {
 }
 
 const settingsSlice = createSlice({
-    name: 'setttingsConfig',
+    name: 'settingsConfig',
     initialState,
 
     reducers: {
