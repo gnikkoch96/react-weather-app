@@ -16,15 +16,6 @@ export default function SettingsPopup({ className }: { className?: string }) {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState<TemperatureUnit>(globalTemperatureUnit);
   const [currentSpeedUnit, setCurrentSpeedUnit] = useState<SpeedUnit>(globalSpeedUnit);
 
-  useEffect(() => {
-    setCurrentTemperatureUnit(globalTemperatureUnit);
-  }, [globalTemperatureUnit])
-
-  
-  useEffect(() => {
-    setCurrentSpeedUnit(globalSpeedUnit);
-  }, [globalSpeedUnit])
-
   if (!isVisible) return null;
 
   const handleTemperatureUnitChange = (
