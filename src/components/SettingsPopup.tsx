@@ -18,6 +18,7 @@ export default function SettingsPopup({ className }: { className?: string }) {
 
   if (!isVisible) return null;
 
+
   const handleTemperatureUnitChange = (
     event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
@@ -42,7 +43,7 @@ export default function SettingsPopup({ className }: { className?: string }) {
           <span>Settings</span>
           <button
             onClick={() => dispatch(setIsVisible(false))}
-            className="cursor-pointer"
+            className="cursor-pointer rounded transition-bg duration-150 ease-in-out hover:bg-gray-400"
           >
             <X className="" size={24} />
           </button>
