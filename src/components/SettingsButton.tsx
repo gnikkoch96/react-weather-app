@@ -7,7 +7,7 @@ export default function SettingsButton({ className }: { className?: string }) {
 
   return (
     <button
-      className={`fixed top-2 left-2 cursor-pointer text-white ${className}`}
+      className={`fixed top-2 left-2 cursor-pointer transition-transform ease-in-out duration-1000 transform hover:rotate-180 text-white ${className}`}
       onClick={() => dispatch(setIsVisible(true))}
     >
       <Settings size={32} />
