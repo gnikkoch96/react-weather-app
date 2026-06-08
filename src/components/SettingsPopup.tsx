@@ -85,13 +85,13 @@ export default function SettingsPopup({ className }: { className?: string }) {
         <div className="flex justify-around gap-1">
           {/* Save or Exit */}
           <button
-            className="cursor-pointer rounded px-4 flex-1 bg-gray-300"
+            className="cursor-pointer rounded px-4 flex-1 bg-gray-300 transition-bg duration-150 ease-out hover:bg-gray-200"
             onClick={() => dispatch(setIsVisible(false))}
           >
             Exit
           </button>
           <button
-            className="cursor-pointer rounded px-4 flex-1 bg-linear-to-r from-blue-600 to-blue-400 text-white"
+            className="cursor-pointer rounded px-4 flex-1 transition-opacity duration-150 ease out hover:opacity-75 bg-linear-to-r from-blue-600 to-blue-400 text-white"
             onClick={() => {
               dispatch(setTemperatureUnit(currentTemperatureUnit));
               dispatch(setSpeedUnit(currentSpeedUnit));
