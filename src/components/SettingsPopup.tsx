@@ -10,20 +10,26 @@ export default function SettingsPopup({ className }: { className?: string }) {
   const isVisible = useAppSelector((state) => state.settingsConfig.isVisible);
   const dispatch = useDispatch();
 
-  const globalTemperatureUnit = useAppSelector((state) => state.weatherConfig.temperatureUnit);
-  const globalSpeedUnit = useAppSelector((state) => state.weatherConfig.speedUnit);
-  
-  const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState<TemperatureUnit>(globalTemperatureUnit);
-  const [currentSpeedUnit, setCurrentSpeedUnit] = useState<SpeedUnit>(globalSpeedUnit);
+  const globalTemperatureUnit = useAppSelector(
+    (state) => state.weatherConfig.temperatureUnit,
+  );
+  const globalSpeedUnit = useAppSelector(
+    (state) => state.weatherConfig.speedUnit,
+  );
 
-  if (!isVisible) return null;
+  const [currentTemperatureUnit, setCurrentTemperatureUnit] =
+    useState<TemperatureUnit>(globalTemperatureUnit);
+  const [currentSpeedUnit, setCurrentSpeedUnit] =
+    useState<SpeedUnit>(globalSpeedUnit);
 
+  // if (!isVisible) return null;
 
   const handleTemperatureUnitChange = (
     event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     const value = event.target.value;
-    if (value === "fahrenheit" || value === "celcius") setCurrentTemperatureUnit(value);
+    if (value === "fahrenheit" || value === "celcius")
+      setCurrentTemperatureUnit(value);
   };
 
   const handleSpeedUnitChange = (
@@ -35,9 +41,20 @@ export default function SettingsPopup({ className }: { className?: string }) {
   };
 
   return (
-    <div className="absolute min-w-screen min-h-screen flex justify-center items-center bg-transparent backdrop-blur-xs">
+    <div
+      className={`absolute ${isVisible ? "pointer-events-auto" : "pointer-events-none"} min-w-screen min-h-screen flex justify-center items-center bg-transparent`}
+    >
+      {/* Backdrop */}
+      <div
+        className={`absolute transition-opacity duration-1000 ease-in-out min-w-screen min-h-screen ${isVisible ? "opacity-100  backdrop-blur-xs" : "opacity-0  backdrop-blur-none"}`}
+      >
+        {" "}
+      </div>
+
       {/* Settings Card */}
-      <div className="flex flex-col gap-4 p-4 text-2xl shadow-2xl rounded border bg-white">
+      <div
+        className={`z-10 ${isVisible ? "flex" : "hidden"} flex-col gap-4 p-4 text-2xl shadow-2xl rounded border bg-white`}
+      >
         {/* Settings Label and X button */}
         <div className="w-full flex justify-between">
           <span>Settings</span>
