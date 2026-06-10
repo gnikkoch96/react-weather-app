@@ -1,25 +1,16 @@
-import SettingsButton from "./components/SettingsButton.js";
-import SettingsPopup from "./components/SettingsPopup.js";
-import WeatherCard from "./components/WeatherCard.js";
-import { useWeatherAPIService } from "./hooks/useWeatherAPIService.js";
+import { BrowserRouter, Routes, Route } from "react-router";
+import WeatherPage from "./pages/WeatherPage.js";
+
+/* TODO remove unused import */
 import { useAppSelector } from "./hooks/useAppSelector.js";
 
 function App() {
-  const { error, isLoading, weatherData } = useWeatherAPIService();
-
   return (
-    <div className="min-h-screen flex justify-center items-center bg-blue-800">
-      <SettingsButton/>
-      {isLoading ? (
-        "Loading..."
-      ) : weatherData ? (
-        <WeatherCard weatherData={weatherData} />
-      ) : (
-        error
-      )}
-      <SettingsPopup/>
-    </div>
-    
+    <BrowserRouter>
+      <Routes>
+        <Route path='/weather' element={<WeatherPage/>}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
