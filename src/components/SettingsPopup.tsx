@@ -46,14 +46,14 @@ export default function SettingsPopup({ className }: { className?: string }) {
     >
       {/* Backdrop */}
       <div
-        className={`absolute transition-opacity duration-1000 ease-in-out min-w-screen min-h-screen ${isVisible ? "opacity-100  backdrop-blur-xs" : "opacity-0  backdrop-blur-none"}`}
+        className={`absolute transition-opacity duration-200 ease-in-out min-w-screen min-h-screen ${isVisible ? "opacity-100  backdrop-blur-xs" : "opacity-0  backdrop-blur-none"}`}
       >
         {" "}
       </div>
 
       {/* Settings Card */}
       <div
-        className={`z-10 ${isVisible ? "flex" : "hidden"} flex-col gap-4 p-4 text-2xl shadow-2xl rounded border bg-white`}
+        className={`z-10 transform-size duration-200 ease-in flex ${isVisible ? "scale-100" : "scale-0"} flex-col gap-4 p-4 text-2xl shadow-2xl rounded border bg-white`}
       >
         {/* Settings Label and X button */}
         <div className="w-full flex justify-between">
