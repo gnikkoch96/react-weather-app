@@ -7,7 +7,7 @@ export default function WeatherPage() {
   const { error, isLoading, weatherData } = useWeatherAPIService();
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-blue-800">
+    <div className="screen">
       <SettingsButton />
       {isLoading ? (
         "Loading..."
