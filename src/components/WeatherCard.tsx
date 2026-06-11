@@ -58,7 +58,7 @@ export default function WeatherCard({
   const speedUnit = useAppSelector((state) => state.weatherConfig.speedUnit);
 
   return (
-    <div className="max-w-md flex flex-col items-center p-4 rounded shadow-sm bg-linear-to-r from-blue-600 to-blue-400 text-white">
+    <div className="card">
       <p className="mb-1">{new Date(weatherData.time).toLocaleString()}</p>
       <div className="flex flex-col justify-center items-center gap-2.5 mb-8">
         {WEATHER_CODE_TO_ICON[weatherData.weather_code]}
