@@ -11,10 +11,10 @@ export default function LoginCard() {
       <div>
         {/* E-mail */}
         <div>
-          <label htmlFor="">
-            <Mail /> E-MAIL ADDRESS
+          <label className="flex items-center gap-1" htmlFor="">
+            <Mail strokeWidth={1.5} size={20}/> E-MAIL ADDRESS
           </label>
-          <input className="border border-white rounded" type="email" />
+          <input className="min-w-full p-1 border border-white rounded" type="email" />
         </div>
 
         {/* Password */}
