@@ -24,6 +24,10 @@
 }
 
 @layer components {
+  .screen {
+    @apply min-h-screen flex justify-center items-center bg-blue-800;
+  }
+
   .card {
     @apply max-w-md flex flex-col items-center p-4 rounded shadow-sm bg-linear-to-r from-blue-600 to-blue-400 text-white;
   }
