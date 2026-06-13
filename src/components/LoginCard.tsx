@@ -11,7 +11,10 @@ export default function LoginCard() {
       <div className="min-w-full flex flex-col gap-2">
         {/* E-mail */}
         <div className="flex flex-col gap-1">
-          <label className="flex items-center gap-1 font-light" htmlFor="email-field">
+          <label
+            className="flex items-center gap-1 font-light"
+            htmlFor="email-field"
+          >
             <Mail strokeWidth={1.5} size={20} /> E-MAIL ADDRESS
           </label>
           <input
@@ -34,14 +37,16 @@ export default function LoginCard() {
           />
         </div>
       </div>
-      
+
       {/* Forgot Password Nav Link */}
       <Link className="self-end underline hover:opacity-70 mb-8" to="/">
         Forgot Password?
       </Link>
 
       {/* Login Button */}
-      <button className="transition duration-200 ease-in cursor-pointer bg-blue-400 min-w-full text-2xl p-2 rounded shadow hover:shadow-[0_0_45px_rgba(34,211,238,1)]">Log In</button>
+      <button className="transition duration-200 ease-in cursor-pointer bg-blue-400 min-w-full text-2xl p-2 rounded shadow hover:shadow-[0_0_45px_rgba(34,211,238,1)]">
+        LOG IN
+      </button>
 
       {/* Sign-up Nav Link */}
       <p>
@@ -50,7 +55,6 @@ export default function LoginCard() {
           Sign up!
         </Link>
       </p>
-
     </div>
   );
 }
