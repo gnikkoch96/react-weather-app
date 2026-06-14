@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 export default function LoginCard() {
   return (
-    <div className="card p-10 gap-2 min-w-100 auto">
+    <div className="card p-10 gap-2">
       {/* Login Label */}
       <h2 className="text-5xl font-bold mb-10">Login</h2>
 
@@ -38,7 +38,7 @@ export default function LoginCard() {
         </div>
       </div>
 
-      {/* Forgot Password Nav Link */}
+      {/* Forgot Password Nav Link */}  
       <Link className="self-end underline hover:opacity-70 mb-8" to="/">
         Forgot Password?
       </Link>
