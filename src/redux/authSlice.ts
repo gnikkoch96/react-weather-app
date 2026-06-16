@@ -1,8 +1,13 @@
 import {createSlice, type PayloadAction} from '@reduxjs/toolkit';
+import { validUsers } from '../data/userCredentials.js';
 
+type UserCredential = {
+    username: string;
+    password: string;
+}
 
 const initialState = {
-    isLoggedIn: false
+
 }
 
 const authSlice = createSlice({
@@ -10,8 +15,8 @@ const authSlice = createSlice({
     initialState,
 
     reducers: {
-        signIn: (state, action: PayloadAction<any>) => {
-            
+        signIn: (state, action: PayloadAction<UserCredential>) => {
+            // what is expected from this function is a JSON of their user and pass 
         }
     }
 })
