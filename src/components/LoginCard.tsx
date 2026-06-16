@@ -1,7 +1,15 @@
 import { Mail, Lock } from "lucide-react";
 import { Link } from "react-router";
+import { useDispatch } from "react-redux";
+import { signIn } from "../redux/authSlice.js";
+import { useState } from "react";
 
 export default function LoginCard() {
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  const dispatch = useDispatch();
+
   return (
     <div className="card p-10 gap-2">
       {/* Login Label */}
@@ -21,6 +29,9 @@ export default function LoginCard() {
             id="email-field"
             className="min-w-full text-2xl p-2 border border-white rounded"
             placeholder="name@example.com"
+            onChange={(event) => {
+              setUsername(event.target.value)
+            }}
             type="email"
           />
         </div>
@@ -33,18 +44,24 @@ export default function LoginCard() {
           <input
             className="min-w-full text-2xl p-2 border border-white rounded"
             placeholder="password"
+            onChange={(event) => {
+              setPassword(event.target.value)
+            }}
             type="password"
           />
         </div>
       </div>
 
-      {/* Forgot Password Nav Link */}  
+      {/* Forgot Password Nav Link */}
       <Link className="self-end underline hover:opacity-70 mb-8" to="/">
         Forgot Password?
       </Link>
 
       {/* Login Button */}
-      <button className="transition duration-200 ease-in cursor-pointer bg-blue-400 min-w-full text-2xl p-2 rounded shadow hover:shadow-[0_0_45px_rgba(34,211,238,1)]">
+      <button
+        className="transition duration-200 ease-in cursor-pointer bg-blue-400 min-w-full text-2xl p-2 rounded shadow hover:shadow-[0_0_45px_rgba(34,211,238,1)]"
+        onClick={() => dispatch(signIn({ username: username, password: password}))}
+      >
         LOG IN
       </button>
 
