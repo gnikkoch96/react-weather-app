@@ -1,22 +1,31 @@
-import {createSlice, type PayloadAction} from '@reduxjs/toolkit';
-import { validUsers } from '../data/userCredentials.js';
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { validUsers } from "../data/userCredentials.js";
 
 type UserCredential = {
-    username: string;
-    password: string;
-}
+  username: string;
+  password: string;
+};
 
 const initialState = {
-
-}
+  isLoggedIn: false,
+};
 
 const authSlice = createSlice({
-    name: 'authConfig',
-    initialState,
+  name: "authConfig",
+  initialState,
 
-    reducers: {
-        signIn: (state, action: PayloadAction<UserCredential>) => {
-            // what is expected from this function is a JSON of their user and pass 
-        }
-    }
-})
+  reducers: {
+    signIn: (state, action: PayloadAction<UserCredential>) => {
+      const { username, password } = action.payload;
+
+      const userFound = validUsers.some((user) => {
+        return user.username == username && user.password == password;
+      })
+
+      state.isLoggedIn = userFound;
+    },
+  },
+});
+
+export const { signIn } = authSlice.actions;
+export default authSlice.reducer;
