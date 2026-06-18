@@ -8,6 +8,7 @@ type UserCredential = {
 
 const initialState = {
   isLoggedIn: false,
+  loginError: false,
 };
 
 const authSlice = createSlice({
@@ -19,10 +20,11 @@ const authSlice = createSlice({
       const { username, password } = action.payload;
 
       const userFound = validUsers.some((user) => {
-        return user.username == username && user.password == password;
+        return user.username === username && user.password === password;
       })
 
       state.isLoggedIn = userFound;
+      state.loginError = !userFound;
     },
   },
 });
