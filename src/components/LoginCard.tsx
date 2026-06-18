@@ -63,12 +63,12 @@ export default function LoginCard() {
         Forgot Password?
       </Link>
 
-      <div>
-        {loginError && <p>Failed to login</p>}
+      <div className="min-w-full flex flex-col items-center gap-1">
+        {loginError && <p className="text-red-500">Entered incorrect/invalid credentials, please try again!</p>}
 
         {/* Login Button */}
         <button
-          className="transition duration-200 ease-in cursor-pointer bg-blue-400 min-w-full text-2xl p-2 rounded shadow hover:shadow-[0_0_45px_rgba(34,211,238,1)]"
+          className="transition duration-200 ease-in cursor-pointer bg-blue-400  text-2xl  p-2 min-w-full rounded shadow hover:shadow-[0_0_45px_rgba(34,211,238,1)]"
           onClick={() => {
             dispatch(signIn({ username: username, password: password}))
           }}
