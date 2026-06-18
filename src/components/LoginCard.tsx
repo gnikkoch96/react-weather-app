@@ -3,10 +3,14 @@ import { Link } from "react-router";
 import { useDispatch } from "react-redux";
 import { signIn } from "../redux/authSlice.js";
 import { useState } from "react";
+import { useAppSelector } from "../hooks/useAppSelector.js";
 
 export default function LoginCard() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+
+  const isLoggedIn = useAppSelector((state) => state.authConfig.isLoggedIn);
+  const loginError = useAppSelector((state) => state.authConfig.loginError);
 
   const dispatch = useDispatch();
 
@@ -29,6 +33,7 @@ export default function LoginCard() {
             id="email-field"
             className="min-w-full text-2xl p-2 border border-white rounded"
             placeholder="name@example.com"
+            value={username}
             onChange={(event) => {
               setUsername(event.target.value)
             }}
@@ -44,6 +49,7 @@ export default function LoginCard() {
           <input
             className="min-w-full text-2xl p-2 border border-white rounded"
             placeholder="password"
+            value={password}
             onChange={(event) => {
               setPassword(event.target.value)
             }}
@@ -57,13 +63,19 @@ export default function LoginCard() {
         Forgot Password?
       </Link>
 
-      {/* Login Button */}
-      <button
-        className="transition duration-200 ease-in cursor-pointer bg-blue-400 min-w-full text-2xl p-2 rounded shadow hover:shadow-[0_0_45px_rgba(34,211,238,1)]"
-        onClick={() => dispatch(signIn({ username: username, password: password}))}
-      >
-        LOG IN
-      </button>
+      <div>
+        {loginError && <p>Failed to login</p>}
+
+        {/* Login Button */}
+        <button
+          className="transition duration-200 ease-in cursor-pointer bg-blue-400 min-w-full text-2xl p-2 rounded shadow hover:shadow-[0_0_45px_rgba(34,211,238,1)]"
+          onClick={() => {
+            dispatch(signIn({ username: username, password: password}))
+          }}
+        >
+          LOG IN
+        </button>
+      </div>
 
       {/* Sign-up Nav Link */}
       <p>
