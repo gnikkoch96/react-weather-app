@@ -1,25 +1,41 @@
 import { Mail, Lock } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-import { signIn } from "../redux/authSlice.js";
 import { useState } from "react";
 import { useAppSelector } from "../hooks/useAppSelector.js";
+import { validUsers } from "../data/userCredentials.js";
+import { setIsLoggedIn, setLoginError } from "../redux/authSlice.js";
+
+async function signIn(username: string, password: string){
+  const userFound = validUsers.some((user) => {
+    return user.username === username && user.password === password;
+  })
+
+  return userFound;
+}
 
 export default function LoginCard() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const isLoggedIn = useAppSelector((state) => state.authConfig.isLoggedIn);
   const loginError = useAppSelector((state) => state.authConfig.loginError);
-
   const dispatch = useDispatch();
 
-  const handleLogin = (e: React.SyntheticEvent) => {
+  const navigate = useNavigate();
+
+  const handleLogin = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    dispatch(signIn({ username: username, password: password }));
+    const isUserFound = await signIn(username, password);
+    dispatch(setIsLoggedIn(isUserFound));
+    dispatch(setLoginError(!isUserFound));
+
+    if(isUserFound){
+      navigate('/weather')
+    }
   };
 
   const errorMsg = 'Entered incorrect/invalid credentials, please try again!'
+
 
   return (
     <div className="card p-10">
