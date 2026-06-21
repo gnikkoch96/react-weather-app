@@ -1,10 +1,4 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { validUsers } from "../data/userCredentials.js";
-
-type UserCredential = {
-  username: string;
-  password: string;
-};
 
 const initialState = {
   isLoggedIn: false,
@@ -16,18 +10,14 @@ const authSlice = createSlice({
   initialState,
 
   reducers: {
-    signIn: (state, action: PayloadAction<UserCredential>) => {
-      const { username, password } = action.payload;
-
-      const userFound = validUsers.some((user) => {
-        return user.username === username && user.password === password;
-      })
-
-      state.isLoggedIn = userFound;
-      state.loginError = !userFound;
+    setIsLoggedIn: (state, action: PayloadAction<boolean>) => {
+      state.isLoggedIn = action.payload;
+    },
+    setLoginError: (state, action: PayloadAction<boolean>) => {
+      state.loginError = action.payload;
     },
   },
 });
 
-export const { signIn } = authSlice.actions;
+export const { setIsLoggedIn, setLoginError } = authSlice.actions;
 export default authSlice.reducer;
