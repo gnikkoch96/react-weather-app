@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
-  isLoggedIn: false,
+  isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
   loginError: false,
 };
 
@@ -12,6 +12,7 @@ const authSlice = createSlice({
   reducers: {
     setIsLoggedIn: (state, action: PayloadAction<boolean>) => {
       state.isLoggedIn = action.payload;
+      localStorage.setItem('isLoggedIn', String(action.payload));
     },
     setLoginError: (state, action: PayloadAction<boolean>) => {
       state.loginError = action.payload;
