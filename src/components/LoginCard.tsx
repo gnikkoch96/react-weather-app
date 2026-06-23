@@ -14,6 +14,8 @@ async function signIn(username: string, password: string) {
   return userFound;
 }
 
+const ERROR_MSG = "Entered incorrect/invalid credentials, please try again!";
+
 export default function LoginCard() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -33,8 +35,6 @@ export default function LoginCard() {
       navigate("/weather");
     }
   };
-
-  const errorMsg = "Entered incorrect/invalid credentials, please try again!";
 
   return (
     <div className="card p-10">
@@ -90,7 +90,7 @@ export default function LoginCard() {
         </Link>
 
         <div className="min-w-full flex flex-col items-center gap-1">
-          {loginError && <p className="text-red-500">{errorMsg}</p>}
+          {loginError && <p className="text-red-500">{ERROR_MSG}</p>}
           {/* Login Button */}
           <button className="transition duration-200 ease-in cursor-pointer bg-blue-400  text-2xl  p-2 min-w-full rounded shadow hover:shadow-[0_0_45px_rgba(34,211,238,1)]">
             LOG IN
