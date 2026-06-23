@@ -6,10 +6,10 @@ import { useAppSelector } from "../hooks/useAppSelector.js";
 import { validUsers } from "../data/userCredentials.js";
 import { setIsLoggedIn, setLoginError } from "../redux/authSlice.js";
 
-async function signIn(username: string, password: string){
+async function signIn(username: string, password: string) {
   const userFound = validUsers.some((user) => {
     return user.username === username && user.password === password;
-  })
+  });
 
   return userFound;
 }
@@ -29,13 +29,12 @@ export default function LoginCard() {
     dispatch(setIsLoggedIn(isUserFound));
     dispatch(setLoginError(!isUserFound));
 
-    if(isUserFound){
-      navigate('/weather')
+    if (isUserFound) {
+      navigate("/weather");
     }
   };
 
-  const errorMsg = 'Entered incorrect/invalid credentials, please try again!'
-
+  const errorMsg = "Entered incorrect/invalid credentials, please try again!";
 
   return (
     <div className="card p-10">
@@ -44,7 +43,7 @@ export default function LoginCard() {
 
       <form
         onSubmit={handleLogin}
-        className="min-w-full flex flex-col items-center gap-2"
+        className="min-w-full flex flex-col items-center gap-2 mb-2"
       >
         {/* Login Form */}
         <div className="min-w-full flex flex-col gap-2">
@@ -90,25 +89,22 @@ export default function LoginCard() {
         </Link>
 
         <div className="min-w-full flex flex-col items-center gap-1">
-          {loginError && (
-            <p className="text-red-500">
-              {errorMsg}
-            </p>
-          )}
+          {loginError && <p className="text-red-500">{errorMsg}</p>}
           {/* Login Button */}
           <button className="transition duration-200 ease-in cursor-pointer bg-blue-400  text-2xl  p-2 min-w-full rounded shadow hover:shadow-[0_0_45px_rgba(34,211,238,1)]">
             LOG IN
           </button>
         </div>
-
-        {/* Sign-up Nav Link */}
-        <p>
-          Don't have an account?{" "}
-          <Link to="/" className="underline hover:opacity-70">
-            Sign up!
-          </Link>
-        </p>
       </form>
+
+      {/* Sign-up Nav Link */}
+      <p>
+        Don't have an account?{" "}
+        <Link to="/" className="underline hover:opacity-70">
+          Sign up!
+        </Link>
+      </p>
+
     </div>
   );
 }
