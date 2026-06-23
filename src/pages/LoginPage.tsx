@@ -8,7 +8,6 @@ export default function LoginPage(){
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log(isLoggedIn);
         if(isLoggedIn){
             navigate('/weather');
         }
