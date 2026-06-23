@@ -68,10 +68,11 @@ export default function LoginCard() {
           </div>
           {/* Password */}
           <div className="min-w-full flex flex-col gap-2">
-            <label className="flex items-center gap-1 font-light" htmlFor="">
+            <label className="flex items-center gap-1 font-light" htmlFor="password-field">
               <Lock strokeWidth={1.5} size={20} /> PASSWORD{" "}
             </label>
             <input
+              id='password-field'
               className="min-w-full text-2xl p-2 border border-white rounded"
               placeholder="password"
               value={password}
