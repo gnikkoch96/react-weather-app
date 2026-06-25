@@ -7,16 +7,16 @@ export default function WeatherPage() {
   const { error, isLoading, weatherData } = useWeatherAPIService();
 
   return (
-    <div className="screen">
+    <main className="screen">
       <SettingsButton />
       {isLoading ? (
-        "Loading..."
+        <p className="text-2xl font-bold text-white">Loading...</p>
       ) : weatherData ? (
         <WeatherCard weatherData={weatherData} />
       ) : (
         error
       )}
       <SettingsPopup />
-    </div>
+    </main>
   );
 }
