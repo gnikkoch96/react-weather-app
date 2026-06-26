@@ -12,7 +12,6 @@ const authSlice = createSlice({
   reducers: {
     setIsLoggedIn: (state, action: PayloadAction<boolean>) => {
       state.isLoggedIn = action.payload;
-      localStorage.setItem('isLoggedIn', String(action.payload));
     },
     setLoginError: (state, action: PayloadAction<boolean>) => {
       state.loginError = action.payload;
