@@ -6,7 +6,7 @@ export default function LoginPage(){
     const isLoggedIn = useAppSelector((state) => state.authConfig.isLoggedIn);
 
     if(isLoggedIn){
-        return <Navigate to='/weather'/>
+        return <Navigate to='/weather' replace/>;
     }
 
     return(
