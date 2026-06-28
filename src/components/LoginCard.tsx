@@ -1,5 +1,5 @@
 import { Mail, Lock } from "lucide-react";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useAppSelector } from "../hooks/useAppSelector.js";
@@ -16,23 +16,25 @@ async function signIn(username: string, password: string) {
 
 const ERROR_MSG = "Entered incorrect/invalid credentials, please try again!";
 
-export default function LoginCard() {
+export default function LoginCard({onSuccess}: {onSuccess: () => void}) {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const loginError = useAppSelector((state) => state.authConfig.loginError);
   const dispatch = useDispatch();
 
-  const navigate = useNavigate();
-
   const handleLogin = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     const isUserFound = await signIn(username, password);
-    dispatch(setIsLoggedIn(isUserFound));
-    dispatch(setLoginError(!isUserFound));
 
     if (isUserFound) {
-      navigate("/weather");
+      localStorage.setItem('isLoggedIn', String(isUserFound));
+      dispatch(setIsLoggedIn(true));
+      dispatch(setLoginError(false));
+      onSuccess();
+    }else{
+      dispatch(setIsLoggedIn(false));
+      dispatch(setLoginError(true));
     }
   };
 
