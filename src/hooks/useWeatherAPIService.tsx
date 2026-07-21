@@ -18,7 +18,7 @@ async function callWeatherAPI(url: string) {
   }
 }
 
-export function useWeatherAPIService(locationData?: LocationData) {
+export function useWeatherAPIService({latitude, longitude}: {latitude: number, longitude: number}) {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
@@ -29,7 +29,7 @@ export function useWeatherAPIService(locationData?: LocationData) {
   const speedUnit = useAppSelector((state) => state.weatherConfig.speedUnit);
 
   useEffect(() => {
-    let url = `https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,relative_humidity_2m,is_day,wind_speed_10m,weather_code&timezone=America%2FLos_Angeles`;
+    let url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,is_day,wind_speed_10m,weather_code&timezone=America%2FLos_Angeles`;
 
     // default values like celcius and kmh don't need the string fields
     if (temperatureUnit != "celcius") {
