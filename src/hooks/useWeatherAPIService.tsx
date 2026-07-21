@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import type { LocationData, WeatherData } from "../../types/weather/types.js";
+import type { Coordinates, WeatherData } from "../../types/weather/types.js";
 import { useAppSelector } from "./useAppSelector.js";
 
 async function callWeatherAPI(url: string) {
@@ -18,7 +18,7 @@ async function callWeatherAPI(url: string) {
   }
 }
 
-export function useWeatherAPIService({latitude, longitude}: {latitude: number, longitude: number}) {
+export function useWeatherAPIService({latitude, longitude}: Coordinates) {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
