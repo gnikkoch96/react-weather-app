@@ -2,7 +2,7 @@ import SettingsButton from "../components/SettingsButton.js";
 import SettingsPopup from "../components/SettingsPopup.js";
 import WeatherCard from "../components/WeatherCard.js";
 import { useAppSelector } from "../hooks/useAppSelector.js";
-import { useWeatherAPIService } from "../hooks/useWeatherAPIService.js";
+import { useWeather } from "../hooks/useWeather.js";
 
 export default function WeatherPage() {
   const temperatureUnit = useAppSelector(
@@ -10,7 +10,7 @@ export default function WeatherPage() {
   );
   const speedUnit = useAppSelector((state) => state.weatherConfig.speedUnit);
 
-  const { error, isLoading, weatherData } = useWeatherAPIService({
+  const { error, isLoading, weatherData } = useWeather({
     latitude: 50,
     longitude: 50,
   }, temperatureUnit, speedUnit);

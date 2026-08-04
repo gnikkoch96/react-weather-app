@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import type { Coordinates, WeatherData } from "../../types/weather/types.js";
 import { getWeather } from "../services/weather.js";
 
-export function useWeatherAPIService(
+export function useWeather(
   { latitude, longitude }: Coordinates,
   temperatureUnit: string,
   speedUnit: string,
