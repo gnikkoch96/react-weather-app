@@ -1,32 +1,52 @@
-import type { LocationData } from "../../types/weather/types.js";
+import type { LocationData } from "../../types/location/types.js";
 
-export async function getLocation(cityName: string){
-]    const formattedCityName = cityName.trim().replaceAll(" ", "+").toLowerCase();
+type LocationApiData = {
+  id: number;
+  name: string;
+  latitude: number;
+  longitude: number;
+  elevation: number;
+  feature_code: string;
+  country_code: string;
+  admin1_id: number;
+  admin2_id: number;
+  timezone: string;
+  population: number;
+  postcodes: string[];
+  country_id: number;
+  country?: string;
+  admin1?: string;
+  admin2?: string;
+  admin3?: string;
+  admin4?: string;
+};
 
-    const url = `https://geocoding-api.open-meteo.com/v1/search?name=${formattedCityName}&count=5&language=en&format=json`
+export async function getLocation(cityName: string) {
+  const formattedCityName = cityName.trim().replaceAll(" ", "+").toLowerCase();
 
-    const response = await fetch(url);
+  const url = `https://geocoding-api.open-meteo.com/v1/search?name=${formattedCityName}&count=5&language=en&format=json`;
 
-    if(!response.ok){
-        throw new Error(`Response Stats: ${response.status}`)
-    }
+  const response = await fetch(url);
 
-    const result = await response.json();
+  if (!response.ok) {
+    throw new Error(`Response Stats: ${response.status}`);
+  }
 
-    if(!result.results){
-        throw new Error("Invalid location response");
-    }
+  const result = await response.json();
 
-    const resultsArr = result.results;
-    const locationData: LocationData[] = resultsArr.map((location) => ({
-        name: location.name,
-        latitude: location.latitude,
-        longitude: location.longitude,
-        country: location.country,
-        state: location.admin1,
-        county: location.admin2
-    }));
+  if (!result.results) {
+    throw new Error("Invalid location response");
+  }
 
+  const resultsArr: LocationApiData[] = result.results;
+  const locationData: LocationData[] = resultsArr.map((location) => ({
+    name: location.name,
+    latitude: location.latitude,
+    longitude: location.longitude,
+    country: location.country || "Unknown Country",
+    state: location.admin1 || "Unknown State",
+    county: location.admin2 || "Unknown County",
+  }));
 
-    return locationData;
+  return locationData;
 }
