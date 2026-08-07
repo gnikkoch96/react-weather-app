@@ -7,31 +7,32 @@ export function useLocation(city: string) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [locationData, setLocationData] = useState<LocationData[] | null>(null);
 
+  const fetchLocationData = async (city: string) => {
+    setIsLoading(true);
+
+    try {
+      const data = await getLocation(city);
+      setLocationData(data);
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("An unexpected error occurred");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // call service
   useEffect(() => {
-    const fetchLocationData = async () => {
-      setIsLoading(true);
-
-      try {
-        const data = await getLocation(city);
-        setLocationData(data);
-      } catch (error) {
-        if(error instanceof Error){
-          setError(error.message);
-        }else{
-          setError("An unexpected error occurred")
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchLocationData();
+    fetchLocationData(city);
   }, []);
 
   return {
     error,
     isLoading,
     locationData,
+    fetchLocationData
   };
 }
