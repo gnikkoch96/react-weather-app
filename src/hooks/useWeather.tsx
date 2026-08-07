@@ -11,18 +11,26 @@ export function useWeather(
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
+  const fetchWeatherData = async (
+    { latitude, longitude }: Coordinates,
+    temperatureUnit: string,
+    speedUnit: string,
+  ) => {
+    setIsLoading(true);
+
+    const data = await getWeather(
+      { latitude, longitude },
+      temperatureUnit,
+      speedUnit,
+    );
+
+    setWeatherData(data);
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    const fetchWeatherData = async () => {
-      setIsLoading(true);
-
-      const data = await getWeather({latitude, longitude}, temperatureUnit, speedUnit);
-
-      setWeatherData(data);
-      setIsLoading(false);
-    };
-
-    fetchWeatherData();
+    fetchWeatherData({latitude, longitude}, temperatureUnit, speedUnit);
   }, [temperatureUnit, speedUnit]);
 
-  return { error, isLoading, weatherData };
+  return { error, isLoading, weatherData, fetchWeatherData };
 }
