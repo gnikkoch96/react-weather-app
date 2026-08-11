@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getLocation } from "../services/location.js";
 import type { LocationData } from "../../types/location/types.js";
 
-export function useLocation(city: string) {
+export function useLocation() {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [locationData, setLocationData] = useState<LocationData[] | null>(null);
@@ -23,11 +23,6 @@ export function useLocation(city: string) {
       setIsLoading(false);
     }
   };
-
-  // call service
-  useEffect(() => {
-    fetchLocationData(city);
-  }, []);
 
   return {
     error,
