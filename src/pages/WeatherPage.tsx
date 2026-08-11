@@ -2,6 +2,7 @@ import SettingsButton from "../components/SettingsButton.js";
 import SettingsPopup from "../components/SettingsPopup.js";
 import WeatherCard from "../components/WeatherCard.js";
 import { useAppSelector } from "../hooks/useAppSelector.js";
+import { useLocation } from "../hooks/useLocation.js";
 import { useWeather } from "../hooks/useWeather.js";
 
 export default function WeatherPage() {
@@ -9,23 +10,32 @@ export default function WeatherPage() {
     (state) => state.weatherConfig.temperatureUnit,
   );
   const speedUnit = useAppSelector((state) => state.weatherConfig.speedUnit);
+  const {
+    error: locationError,
+    isLoading: locationLoading,
+    locationData,
+    fetchLocationData,
+  } = useLocation();
 
-  const { error, isLoading, weatherData } = useWeather({
-    latitude: 50,
-    longitude: 50,
-  }, temperatureUnit, speedUnit);
+  const {
+    error: weatherError,
+    isLoading: weatherLoading,
+    weatherData,
+    fetchWeatherData
+  } = useWeather();
 
   return (
     <main className="screen">
       <SettingsButton />
-      {isLoading ? (
+      {weatherLoading ? (
         <p className="text-2xl font-bold text-white">Loading...</p>
       ) : weatherData ? (
         <WeatherCard weatherData={weatherData} />
       ) : (
-        error
+        weatherError
       )}
       <SettingsPopup />
+
     </main>
   );
 }
