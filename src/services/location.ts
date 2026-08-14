@@ -40,6 +40,7 @@ export async function getLocation(cityName: string) {
 
   const resultsArr: LocationApiData[] = result.results;
   const locationData: LocationData[] = resultsArr.map((location) => ({
+    id: location.id,
     name: location.name,
     latitude: location.latitude,
     longitude: location.longitude,

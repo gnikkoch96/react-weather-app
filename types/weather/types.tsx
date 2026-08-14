@@ -1,7 +1,3 @@
-export type LocationData = {
-  location: string;
-};
-
 export type Coordinates = {
   latitude: number;
   longitude: number;
