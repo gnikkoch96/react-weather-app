@@ -1,29 +1,20 @@
 @import "tailwindcss";
 
-
 :root {
-  /* Keep your raw variables for logic, but remove the 'font' and 'color' assignments */
-  --text: #6b6375;
-  --bg: #fff;
-  --accent: #aa3bff;
-  /* ... keep other variables if you need them for non-Tailwind parts ... */
+  --color-primary: var(--color-blue-800);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --bg: #16171d;
-    --accent: #c084fc;
+    --color-primary: var(--color-blue-800);
   }
 }
 
 @theme {
   /* This maps your variables so Tailwind can use them, e.g., className="text-accent" */
-  --color-accent: var(--accent);
-  --color-bg-custom: var(--bg);
-  --color-text-main: var(--text);
+  --color-primary: var(--color-blue-800);
+  --color-secondary: var(--color-blue-800);
 }
-
 
 @layer components {
   .screen {
