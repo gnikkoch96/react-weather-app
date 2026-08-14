@@ -27,11 +27,11 @@ export default function SearchLocationBar({
   };
 
   return (
-    <form className="relative" onSubmit={handleSubmit(onSubmit)}>
+    <form className="min-w-md relative" onSubmit={handleSubmit(onSubmit)}>
       <input
         type="text"
         placeholder="Enter City"
-        className="bg-white border rounded-2xl p-1.5 pr-9 shadow"
+        className="min-w-full bg-white border rounded-2xl p-1.5 pr-9 shadow"
         {...register("city", { required: "Please enter a city" })}
       />
       <button
