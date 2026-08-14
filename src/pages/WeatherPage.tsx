@@ -11,7 +11,9 @@ import type { LocationData } from "../../types/location/types.js";
 
 export default function WeatherPage() {
   const [openLocationPopup, setOpenLocationPopup] = useState<boolean>(false);
-  const [selectedLocation, setSelectedLocation] = useState<LocationData | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<LocationData | null>(
+    null
+  );
 
   const temperatureUnit = useAppSelector(
     (state) => state.weatherConfig.temperatureUnit,
@@ -37,10 +39,21 @@ export default function WeatherPage() {
     setOpenLocationPopup(true);
   }, [locationData]);
 
-  const handleLocationSelect = (location : LocationData) =>{
+  useEffect(() => {
+    if (selectedLocation == null) return;
+    
+    fetchWeatherData(
+        {latitude: selectedLocation.latitude, longitude: selectedLocation.longitude},
+        temperatureUnit,
+        speedUnit
+      )
+
+  }, [selectedLocation]);
+
+  const handleLocationSelect = (location: LocationData) => {
     setSelectedLocation(location);
     setOpenLocationPopup(false);
-  }
+  };
 
   return (
     <main className="screen">
@@ -51,7 +64,10 @@ export default function WeatherPage() {
       />
 
       {openLocationPopup && (
-        <LocationsPopup locationData={locationData} handleLocationSelect={handleLocationSelect}/>
+        <LocationsPopup
+          locationData={locationData}
+          handleLocationSelect={handleLocationSelect}
+        />
       )}
 
       {weatherLoading ? (
