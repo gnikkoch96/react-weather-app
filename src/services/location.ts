@@ -24,6 +24,10 @@ type LocationApiData = {
 export async function getLocation(cityName: string) {
   const formattedCityName = cityName.trim().replaceAll(" ", "+").toLowerCase();
 
+  if(!formattedCityName){
+    throw new Error("City name cannot be empty");
+  }
+
   const url = `https://geocoding-api.open-meteo.com/v1/search?name=${formattedCityName}&count=5&language=en&format=json`;
 
   const response = await fetch(url);
