@@ -17,11 +17,18 @@ export default function LocationsPopup({
   return (
     <Modal title="Select Location" isVisible={isOpen} onClose={onClose}>
       <div>
-        <ul>
+        <ul className="flex flex-col gap-2">
           {locationData?.map((location) => (
-            <li key={location.id}>
-              <button onClick={() => handleLocationSelect(location)}>
-                {location.name} | {location.country} | {location.state}
+            <li
+              key={location.id}
+              className="transition-colors
+                hover:bg-gray-200 border rounded hover:shadow py-1 px-2"
+            >
+              <button
+                className="cursor-pointer"
+                onClick={() => handleLocationSelect(location)}
+              >
+                ({location.country}) {location.name}, {location.state}
               </button>
             </li>
           ))}
