@@ -16,6 +16,7 @@ import {
   ThermometerSnowflake,
 } from "lucide-react";
 import { useAppSelector } from "../hooks/useAppSelector.js";
+import type { LocationData } from "../../types/location/types.js";
 
 const WEATHER_ICON_SIZE = 256;
 const WEATHER_CODE_TO_ICON: Record<number, React.ReactNode> = {
@@ -49,17 +50,22 @@ const WEATHER_CODE_TO_ICON: Record<number, React.ReactNode> = {
   99: <CloudLightning size={WEATHER_ICON_SIZE} />,
 };
 
-export default function WeatherCard({
-  weatherData,
-}: {
+type WeatherCardProps = {
+  locationData: LocationData | null;
   weatherData: WeatherData;
-}) {
+}
+
+export default function WeatherCard({
+  locationData,
+  weatherData,
+}: WeatherCardProps) {
   const temperatureUnit = useAppSelector((state) => state.weatherConfig.temperatureUnit);
   const speedUnit = useAppSelector((state) => state.weatherConfig.speedUnit);
 
   return (
     <div className="card">
       <p className="mb-1">{new Date(weatherData.time).toLocaleString()}</p>
+      <p>{locationData?.country}, {locationData?.name}, {locationData?.state}</p>
       <div className="flex flex-col justify-center items-center gap-2.5 mb-8">
         {WEATHER_CODE_TO_ICON[weatherData.weather_code]}
         <p className="text-5xl">

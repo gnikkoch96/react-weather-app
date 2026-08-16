@@ -75,7 +75,7 @@ export default function WeatherPage() {
       {weatherLoading ? (
         <p className="text-2xl font-bold text-white">Loading...</p>
       ) : weatherData ? (
-        <WeatherCard weatherData={weatherData} />
+        <WeatherCard locationData={selectedLocation} weatherData={weatherData} />
       ) : (
         weatherError
       )}
