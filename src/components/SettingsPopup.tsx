@@ -1,10 +1,10 @@
-import { X } from "lucide-react";
 import { useAppSelector } from "../hooks/useAppSelector.js";
 import { useDispatch } from "react-redux";
 import { setIsVisible } from "../redux/settingsSlice.js";
 import { setSpeedUnit, setTemperatureUnit } from "../redux/weatherSlice.js";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import type { SpeedUnit, TemperatureUnit } from "../../types/weather/types.js";
+import Modal from "./common/Modal.js";
 
 export default function SettingsPopup({ className }: { className?: string }) {
   const isVisible = useAppSelector((state) => state.settingsConfig.isVisible);
@@ -21,8 +21,6 @@ export default function SettingsPopup({ className }: { className?: string }) {
     useState<TemperatureUnit>(globalTemperatureUnit);
   const [currentSpeedUnit, setCurrentSpeedUnit] =
     useState<SpeedUnit>(globalSpeedUnit);
-
-  // if (!isVisible) return null;
 
   const handleTemperatureUnitChange = (
     event: React.ChangeEvent<HTMLSelectElement>,
@@ -41,84 +39,63 @@ export default function SettingsPopup({ className }: { className?: string }) {
   };
 
   return (
-    <div
-      className={`absolute ${isVisible ? "pointer-events-auto" : "pointer-events-none"} min-w-screen min-h-screen flex justify-center items-center bg-transparent`}
+    <Modal
+      title="Settings"
+      isVisible={isVisible}
+      onClose={() => dispatch(setIsVisible(false))}
     >
-      {/* Backdrop */}
-      <div
-        className={`absolute transition-all duration-500 ease-in-out min-w-screen min-h-screen ${isVisible ? "opacity-100  backdrop-blur-xs" : "opacity-0  backdrop-blur-none"}`}
-      >
-        {" "}
+      {/* Temperature Unit */}
+      <label className="flex gap-2">
+        <span className="flex-1/2">Temperature Unit:</span>
+        <select
+          className="border px-1 border-gray-500 rounded"
+          name="temperature-unit"
+          id=""
+          onChange={handleTemperatureUnitChange}
+          value={currentTemperatureUnit}
+        >
+          <option value="fahrenheit">Farenheit</option>
+          <option value="celcius">Celcius</option>
+        </select>
+      </label>
+
+      {/* Speed Unit */}
+      <label className="flex">
+        <span className="flex-1/4">Speed Unit:</span>
+        <select
+          className="border px-1 border-gray-300 rounded"
+          name="speed-unit"
+          id=""
+          onChange={handleSpeedUnitChange}
+          value={currentSpeedUnit}
+        >
+          <option value="kmh">km/h</option>
+          <option value="m/s">m/s</option>
+          <option value="mph">mph</option>
+          <option value="kn">Knots</option>
+        </select>
+      </label>
+
+      {/* Action Buttons */}
+      <div className="flex justify-around gap-1">
+        {/* Save or Exit */}
+        <button
+          className="cursor-pointer rounded px-4 flex-1 bg-gray-300 transition-bg duration-150 ease-out hover:bg-gray-200"
+          onClick={() => dispatch(setIsVisible(false))}
+        >
+          Exit
+        </button>
+        <button
+          className="cursor-pointer rounded px-4 flex-1 transition-opacity duration-150 ease out hover:opacity-75 bg-linear-to-r from-blue-600 to-blue-400 text-white"
+          onClick={() => {
+            dispatch(setTemperatureUnit(currentTemperatureUnit));
+            dispatch(setSpeedUnit(currentSpeedUnit));
+            dispatch(setIsVisible(false));
+          }}
+        >
+          Save
+        </button>
       </div>
-
-      {/* Settings Card */}
-      <div
-        className={`z-10 transform-size duration-500 ease-in flex ${isVisible ? "scale-100" : "scale-0"} flex-col gap-4 p-4 text-2xl shadow-2xl rounded border bg-white`}
-      >
-        {/* Settings Label and X button */}
-        <div className="w-full flex justify-between">
-          <span>Settings</span>
-          <button
-            onClick={() => dispatch(setIsVisible(false))}
-            className="cursor-pointer rounded transition-bg duration-150 ease-out hover:bg-gray-200"
-          >
-            <X className="" size={24} />
-          </button>
-        </div>
-
-        {/* Temperature Unit */}
-        <label className="flex gap-2">
-          <span className="flex-1/2">Temperature Unit:</span>
-          <select
-            className="border px-1 border-gray-500 rounded"
-            name="temperature-unit"
-            id=""
-            onChange={handleTemperatureUnitChange}
-            value={currentTemperatureUnit}
-          >
-            <option value="fahrenheit">Farenheit</option>
-            <option value="celcius">Celcius</option>
-          </select>
-        </label>
-
-        {/* Speed Unit */}
-        <label className="flex">
-          <span className="flex-1/4">Speed Unit:</span>
-          <select
-            className="border px-1 border-gray-300 rounded"
-            name="speed-unit"
-            id=""
-            onChange={handleSpeedUnitChange}
-            value={currentSpeedUnit}
-          >
-            <option value="kmh">km/h</option>
-            <option value="m/s">m/s</option>
-            <option value="mph">mph</option>
-            <option value="kn">Knots</option>
-          </select>
-        </label>
-
-        {/* Action Buttons */}
-        <div className="flex justify-around gap-1">
-          {/* Save or Exit */}
-          <button
-            className="cursor-pointer rounded px-4 flex-1 bg-gray-300 transition-bg duration-150 ease-out hover:bg-gray-200"
-            onClick={() => dispatch(setIsVisible(false))}
-          >
-            Exit
-          </button>
-          <button
-            className="cursor-pointer rounded px-4 flex-1 transition-opacity duration-150 ease out hover:opacity-75 bg-linear-to-r from-blue-600 to-blue-400 text-white"
-            onClick={() => {
-              dispatch(setTemperatureUnit(currentTemperatureUnit));
-              dispatch(setSpeedUnit(currentSpeedUnit));
-              dispatch(setIsVisible(false));
-            }}
-          >
-            Save
-          </button>
-        </div>
-      </div>
-    </div>
+    </Modal>
   );
 }
