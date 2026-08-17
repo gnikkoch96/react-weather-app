@@ -9,6 +9,20 @@ import { useEffect, useState } from "react";
 import LocationsPopup from "../components/LocationsPopup.js";
 import type { LocationData } from "../../types/location/types.js";
 
+/*
+  Responsibility:
+  1. Manages page-level location state (selectedLocation & openLocationPopup)
+  2. Coordinate location and weather fetching
+     a. Calls the fetching actions exposed by useLocation & useWeather
+     b. Decides WHEN weather should be fetched based on the selected location and weather settings
+  3. Coordinate data between components
+     a. Passes location-fetching functionality to SearchLocationBar
+     b. Passes location results and selection behavior to LocationsPopup
+     c. Passes selected location and weather data to WeatherCard
+  4. Coordinate UI state based on data changes
+     a. Opens the location popup when new location results arrive
+     b. Closes it when a location is selected
+*/
 export default function WeatherPage() {
   const [openLocationPopup, setOpenLocationPopup] = useState<boolean>(false);
   const [selectedLocation, setSelectedLocation] = useState<LocationData | null>(
@@ -75,7 +89,10 @@ export default function WeatherPage() {
       {weatherLoading ? (
         <p className="text-2xl font-bold text-white">Loading...</p>
       ) : weatherData ? (
-        <WeatherCard locationData={selectedLocation} weatherData={weatherData} />
+        <WeatherCard
+          locationData={selectedLocation}
+          weatherData={weatherData}
+        />
       ) : (
         weatherError
       )}
