@@ -76,6 +76,7 @@ export default function WeatherPage() {
       <SettingsButton />
       <SearchLocationBar
         locationLoading={locationLoading}
+        locationError={locationError}
         fetchLocationData={fetchLocationData}
       />
 

@@ -7,11 +7,13 @@ type Inputs = {
 
 type SearchLocationBarProps = {
   locationLoading: boolean;
+  locationError: string | null;
   fetchLocationData: (city: string) => void;
 };
 
 export default function SearchLocationBar({
   locationLoading,
+  locationError,
   fetchLocationData,
 }: SearchLocationBarProps) {
   const {
@@ -42,6 +44,7 @@ export default function SearchLocationBar({
         <Search size={20} />
       </button>
       {errors.city && <p className='text-white ml-1.5'>{errors.city.message}</p>}
+      {locationError && <p className='text-white ml-1.5'>{locationError}</p>}
     </form>
   );
 }
