@@ -50,7 +50,7 @@ export default function WeatherPage() {
       temperatureUnit,
       speedUnit,
     );
-  }, [selectedLocation]);
+  }, [selectedLocation, temperatureUnit, speedUnit]);
 
   const handleLocationSelect = (location: LocationData) => {
     setSelectedLocation(location);
