@@ -94,7 +94,7 @@ export default function WeatherPage() {
           weatherData={weatherData}
         />
       ) : (
-        weatherError
+        <p className="text-2xl font-bold text-white">{weatherError}</p>
       )}
       <SettingsPopup />
     </main>
