@@ -52,7 +52,7 @@ const WEATHER_CODE_TO_ICON: Record<number, React.ReactNode> = {
 
 type WeatherCardProps = {
   locationData: LocationData | null;
-  weatherData: WeatherData;
+  weatherData: WeatherData | null;
 }
 
 export default function WeatherCard({
@@ -62,6 +62,8 @@ export default function WeatherCard({
   const temperatureUnit = useAppSelector((state) => state.weatherConfig.temperatureUnit);
   const speedUnit = useAppSelector((state) => state.weatherConfig.speedUnit);
 
+  if(!weatherData) return null;
+  
   return (
     <div className="card">
       <p className="mb-1">{new Date(weatherData.time).toLocaleString()}</p>
