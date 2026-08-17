@@ -87,16 +87,21 @@ export default function WeatherPage() {
         handleLocationSelect={handleLocationSelect}
       />
 
-      {weatherLoading ? (
+      {weatherLoading && (
         <p className="text-2xl font-bold text-white">Loading...</p>
-      ) : weatherData ? (
+      )}
+
+      {weatherData && (
         <WeatherCard
           locationData={selectedLocation}
           weatherData={weatherData}
         />
-      ) : (
+      )}
+
+      {weatherError && (
         <p className="text-2xl font-bold text-white">{weatherError}</p>
       )}
+
       <SettingsPopup />
     </main>
   );
