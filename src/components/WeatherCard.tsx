@@ -1,4 +1,4 @@
-import type { WeatherData } from "../../types/weather/types.js";
+import type { SpeedUnit, TemperatureUnit, WeatherData } from "../../types/weather/types.js";
 import {
   Droplet,
   Wind,
@@ -51,16 +51,18 @@ const WEATHER_CODE_TO_ICON: Record<number, React.ReactNode> = {
 };
 
 type WeatherCardProps = {
+  temperatureUnit: TemperatureUnit;
+  speedUnit: SpeedUnit;
   locationData: LocationData | null;
   weatherData: WeatherData;
 }
 
 export default function WeatherCard({
+  temperatureUnit,
+  speedUnit,
   locationData,
   weatherData,
 }: WeatherCardProps) {
-  const temperatureUnit = useAppSelector((state) => state.weatherConfig.temperatureUnit);
-  const speedUnit = useAppSelector((state) => state.weatherConfig.speedUnit);
   
   return (
     <div className="card">
