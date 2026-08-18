@@ -53,7 +53,7 @@ const WEATHER_CODE_TO_ICON: Record<number, React.ReactNode> = {
 type WeatherCardProps = {
   temperatureUnit: TemperatureUnit;
   speedUnit: SpeedUnit;
-  locationData: LocationData | null;
+  locationData: LocationData;
   weatherData: WeatherData;
 }
 
@@ -67,7 +67,7 @@ export default function WeatherCard({
   return (
     <div className="card">
       <p className="mb-1">{new Date(weatherData.time).toLocaleString()}</p>
-      <p>{locationData?.country}, {locationData?.name}, {locationData?.state}</p>
+      <p>{locationData.country}, {locationData.name}, {locationData.state}</p>
       <div className="flex flex-col justify-center items-center gap-2.5 mb-8">
         {WEATHER_CODE_TO_ICON[weatherData.weather_code]}
         <p className="text-5xl">

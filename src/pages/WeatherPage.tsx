@@ -91,7 +91,7 @@ export default function WeatherPage() {
         <p className="text-2xl font-bold text-white">Loading...</p>
       ) : weatherError ? (
         <p className="text-2xl font-bold text-white">{weatherError}</p>
-      ) : weatherData ? (
+      ) : weatherData && selectedLocation ? (
         <WeatherCard
           temperatureUnit={temperatureUnit}
           speedUnit={speedUnit}
