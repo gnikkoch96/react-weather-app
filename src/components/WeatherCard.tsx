@@ -82,7 +82,7 @@ export default function WeatherCard({
           <p className="flex items-center gap-2">
             <Droplet /> Relative Humidity
           </p>
-          <p className="ml-8">{weatherData.relative_humidity} mm</p>
+          <p className="ml-8">{weatherData.relative_humidity} %</p>
         </div>
         <div className="flex flex-col justify-start">
           <p className="flex items-center gap-2">
