@@ -23,7 +23,7 @@ export default function LocationsPopup({
     <Modal title="Select Location" isVisible={isOpen} onClose={onClose}>
       <div>
         <ul className="flex flex-col gap-2">
-          {locationData.map((location) => (
+          {locationData.length > 0 ? locationData.map((location) => (
             <li
               key={location.id}
               className="transition-colors
@@ -36,7 +36,7 @@ export default function LocationsPopup({
                 ({location.country}) {[location.name, location.state].filter(Boolean).join(', ')}
               </button>
             </li>
-          ))}
+          )) : <p>No locations found</p>}
         </ul>
       </div>
     </Modal>
