@@ -80,12 +80,14 @@ export default function WeatherPage() {
         fetchLocationData={fetchLocationData}
       />
 
-      <LocationsPopup
-        isOpen={openLocationPopup}
-        onClose={() => setOpenLocationPopup(false)}
-        locationData={locationData}
-        handleLocationSelect={handleLocationSelect}
-      />
+      {locationData && (
+        <LocationsPopup
+          isOpen={openLocationPopup}
+          onClose={() => setOpenLocationPopup(false)}
+          locationData={locationData}
+          handleLocationSelect={handleLocationSelect}
+        />
+      )}
 
       {weatherLoading ? (
         <p className="text-2xl font-bold text-white">Loading...</p>

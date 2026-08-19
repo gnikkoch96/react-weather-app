@@ -2,7 +2,7 @@ import type { LocationData } from "../../types/location/types.js";
 import Modal from "./common/Modal.js";
 
 type LocationsPopupProps = {
-  locationData: LocationData[] | null;
+  locationData: LocationData[];
   handleLocationSelect: (location: LocationData) => void;
   isOpen: boolean;
   onClose: () => void;
@@ -22,7 +22,7 @@ export default function LocationsPopup({
     <Modal title="Select Location" isVisible={isOpen} onClose={onClose}>
       <div>
         <ul className="flex flex-col gap-2">
-          {locationData?.map((location) => (
+          {locationData.map((location) => (
             <li
               key={location.id}
               className="transition-colors
