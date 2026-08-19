@@ -8,6 +8,10 @@ type LocationsPopupProps = {
   onClose: () => void;
 };
 
+/*
+  Responsibility: 
+  1. Display locations search results
+*/
 export default function LocationsPopup({
   locationData,
   handleLocationSelect,
