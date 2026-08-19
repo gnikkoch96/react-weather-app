@@ -26,11 +26,10 @@ export default function LocationsPopup({
           {locationData.length > 0 ? locationData.map((location) => (
             <li
               key={location.id}
-              className="transition-colors
-                hover:bg-gray-200 border rounded hover:shadow py-1 px-2"
             >
               <button
-                className="cursor-pointer"
+                className="w-full text-left transition-colors
+                hover:bg-gray-200 border rounded hover:shadow py-1 px-2 cursor-pointer "
                 onClick={() => onLocationSelect(location)}
               >
                 ({location.country}) {[location.name, location.state].filter(Boolean).join(', ')}
