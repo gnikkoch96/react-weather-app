@@ -1,4 +1,8 @@
-import type { SpeedUnit, TemperatureUnit, WeatherData } from "../../types/weather/types.js";
+import type {
+  SpeedUnit,
+  TemperatureUnit,
+  WeatherData,
+} from "../../types/weather/types.js";
 import {
   Droplet,
   Wind,
@@ -14,6 +18,7 @@ import {
   CloudHail,
   CloudLightning,
   ThermometerSnowflake,
+  BadgeQuestionMark,
 } from "lucide-react";
 import type { LocationData } from "../../types/location/types.js";
 
@@ -54,7 +59,7 @@ type WeatherCardProps = {
   speedUnit: SpeedUnit;
   locationData: LocationData;
   weatherData: WeatherData;
-}
+};
 
 /*
   Responsibility
@@ -66,16 +71,27 @@ export default function WeatherCard({
   locationData,
   weatherData,
 }: WeatherCardProps) {
-  const locationMetaData = [locationData.country, locationData.name, locationData.state].filter(Boolean).join(", ");
-  
+  const locationMetaData = [
+    locationData.country,
+    locationData.name,
+    locationData.state,
+  ]
+    .filter(Boolean)
+    .join(", ");
+
+  const weatherIcon = WEATHER_CODE_TO_ICON[weatherData.weather_code] ?? (
+    <BadgeQuestionMark size={WEATHER_ICON_SIZE} />
+  );
+
   return (
     <div className="card">
       <p className="mb-1">{new Date(weatherData.time).toLocaleString()}</p>
       <p>{locationMetaData}</p>
       <div className="flex flex-col justify-center items-center gap-2.5 mb-8">
-        {WEATHER_CODE_TO_ICON[weatherData.weather_code]}
+        {weatherIcon}
         <p className="text-5xl">
-          {weatherData.temperature} <span>&#176;</span>{temperatureUnit == 'fahrenheit' ? 'F' : 'C'}
+          {weatherData.temperature} <span>&#176;</span>
+          {temperatureUnit == "fahrenheit" ? "F" : "C"}
         </p>
       </div>
       <div className="flex justify-between text-2xl gap-6">
@@ -89,7 +105,9 @@ export default function WeatherCard({
           <p className="flex items-center gap-2">
             <Wind /> Wind Speed
           </p>
-          <p className="ml-8">{weatherData.wind_speed} {speedUnit}</p>
+          <p className="ml-8">
+            {weatherData.wind_speed} {speedUnit}
+          </p>
         </div>
       </div>
     </div>
