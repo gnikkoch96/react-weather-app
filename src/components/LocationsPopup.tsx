@@ -18,6 +18,7 @@ export default function LocationsPopup({
   isOpen,
   onClose,
 }: LocationsPopupProps) {
+
   return (
     <Modal title="Select Location" isVisible={isOpen} onClose={onClose}>
       <div>
@@ -32,7 +33,7 @@ export default function LocationsPopup({
                 className="cursor-pointer"
                 onClick={() => handleLocationSelect(location)}
               >
-                ({location.country}) {location.name}, {location.state}
+                ({location.country}) {[location.name, location.state].filter(Boolean).join(', ')}
               </button>
             </li>
           ))}
