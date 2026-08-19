@@ -3,7 +3,7 @@ import Modal from "./common/Modal.js";
 
 type LocationsPopupProps = {
   locationData: LocationData[];
-  handleLocationSelect: (location: LocationData) => void;
+  onLocationSelect: (location: LocationData) => void;
   isOpen: boolean;
   onClose: () => void;
 };
@@ -14,7 +14,7 @@ type LocationsPopupProps = {
 */
 export default function LocationsPopup({
   locationData,
-  handleLocationSelect,
+  onLocationSelect,
   isOpen,
   onClose,
 }: LocationsPopupProps) {
@@ -31,7 +31,7 @@ export default function LocationsPopup({
             >
               <button
                 className="cursor-pointer"
-                onClick={() => handleLocationSelect(location)}
+                onClick={() => onLocationSelect(location)}
               >
                 ({location.country}) {[location.name, location.state].filter(Boolean).join(', ')}
               </button>

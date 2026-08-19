@@ -85,7 +85,7 @@ export default function WeatherPage() {
           isOpen={openLocationPopup}
           onClose={() => setOpenLocationPopup(false)}
           locationData={locationData}
-          handleLocationSelect={handleLocationSelect}
+          onLocationSelect={handleLocationSelect}
         />
       )}
 
