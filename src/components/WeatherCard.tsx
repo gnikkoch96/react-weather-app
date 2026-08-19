@@ -15,7 +15,6 @@ import {
   CloudLightning,
   ThermometerSnowflake,
 } from "lucide-react";
-import { useAppSelector } from "../hooks/useAppSelector.js";
 import type { LocationData } from "../../types/location/types.js";
 
 const WEATHER_ICON_SIZE = 256;
@@ -57,6 +56,10 @@ type WeatherCardProps = {
   weatherData: WeatherData;
 }
 
+/*
+  Responsibility
+  1. Display weather and location data
+*/
 export default function WeatherCard({
   temperatureUnit,
   speedUnit,
