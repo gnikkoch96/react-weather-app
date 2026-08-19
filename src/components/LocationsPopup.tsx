@@ -28,6 +28,7 @@ export default function LocationsPopup({
               key={location.id}
             >
               <button
+                type="button"
                 className="w-full text-left transition-colors
                 hover:bg-gray-200 border rounded hover:shadow py-1 px-2 cursor-pointer "
                 onClick={() => onLocationSelect(location)}
