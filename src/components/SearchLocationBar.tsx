@@ -13,7 +13,7 @@ type SearchLocationBarProps = {
 
 /*
   Responsibility:
-  1. Manager and render the location search form
+  1. Manages and renders the location search form
   2. Trigger location search
 */
 export default function SearchLocationBar({
