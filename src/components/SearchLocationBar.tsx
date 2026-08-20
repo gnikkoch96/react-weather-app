@@ -34,7 +34,11 @@ export default function SearchLocationBar({
 
   return (
     <form className="min-w-md relative" onSubmit={handleSubmit(onSubmit)}>
+      <label className="sr-only" htmlFor="city">
+        Enter City:
+      </label>
       <input
+        id='city'
         type="text"
         placeholder="Enter City"
         className="min-w-full bg-white border rounded-2xl p-1.5 pr-9 shadow"
