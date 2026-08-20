@@ -1,5 +1,5 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { Search } from "lucide-react";
+import { Search, LoaderCircle } from "lucide-react";
 
 type Inputs = {
   city: string;
@@ -37,14 +37,16 @@ export default function SearchLocationBar({
         {...register("city", { required: "Please enter a city" })}
       />
       <button
-        className="absolute p-0.5 rounded-2xl bg-primary text-white right-1.5 top-2 hover:cursor-pointer transition duration-100 ease-in "
+        className="flex justify-center items-center absolute p-0.5 rounded-2xl bg-primary text-white right-1.5 top-2 hover:cursor-pointer transition duration-100 ease-in "
         disabled={locationLoading}
         type="submit"
       >
-        <Search size={20} />
+        {locationLoading ? <LoaderCircle className='animate-spin' size={20} /> : <Search size={20} />}
       </button>
-      {errors.city && <p className='text-white ml-1.5'>{errors.city.message}</p>}
-      {locationError && <p className='text-white ml-1.5'>{locationError}</p>}
+      {errors.city && (
+        <p className="text-white ml-1.5">{errors.city.message}</p>
+      )}
+      {locationError && <p className="text-white ml-1.5">{locationError}</p>}
     </form>
   );
 }
