@@ -11,6 +11,11 @@ type SearchLocationBarProps = {
   fetchLocationData: (city: string) => void;
 };
 
+/*
+  Responsibility:
+  1. Manager and render the location search form
+  2. Trigger location search
+*/
 export default function SearchLocationBar({
   locationLoading,
   locationError,
@@ -43,6 +48,7 @@ export default function SearchLocationBar({
       >
         {locationLoading ? <LoaderCircle className='animate-spin' size={20} /> : <Search size={20} />}
       </button>
+
       {errors.city && (
         <p className="text-white ml-1.5">{errors.city.message}</p>
       )}
