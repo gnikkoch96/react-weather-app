@@ -31,6 +31,7 @@ export default function SearchLocationBar({
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const { city } = data;
     fetchLocationData(city);
+    reset()
   };
 
   return (
