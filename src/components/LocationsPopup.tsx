@@ -8,8 +8,8 @@ type LocationsPopupProps = {
   onClose: () => void;
 };
 
-function formatLocation(location: LocationData){
-  return `(${location.country}) ${[location.name, location.state].filter(Boolean).join(', ')}`
+function formatLocation(location: LocationData) {
+  return `(${location.country}) ${[location.name, location.state].filter(Boolean).join(", ")}`;
 }
 
 /*
@@ -22,15 +22,12 @@ export default function LocationsPopup({
   isOpen,
   onClose,
 }: LocationsPopupProps) {
-
   return (
     <Modal title="Select Location" isVisible={isOpen} onClose={onClose}>
-      <div>
-        <ul className="flex flex-col gap-2">
-          {locationData.length > 0 ? locationData.map((location) => (
-            <li
-              key={location.id}
-            >
+      <ul className="flex flex-col gap-2">
+        {locationData.length > 0 ? (
+          locationData.map((location) => (
+            <li key={location.id}>
               <button
                 type="button"
                 className="w-full text-left transition-colors
@@ -40,9 +37,11 @@ export default function LocationsPopup({
                 {formatLocation(location)}
               </button>
             </li>
-          )) : <p>No locations found</p>}
-        </ul>
-      </div>
+          ))
+        ) : (
+          <p>No locations found</p>
+        )}
+      </ul>
     </Modal>
   );
 }
