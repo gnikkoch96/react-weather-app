@@ -8,6 +8,10 @@ type LocationsPopupProps = {
   onClose: () => void;
 };
 
+function formatLocation(location: LocationData){
+  return `(${location.country}) ${[location.name, location.state].filter(Boolean).join(', ')}`
+}
+
 /*
   Responsibility: 
   1. Display locations search results
@@ -33,7 +37,7 @@ export default function LocationsPopup({
                 hover:bg-gray-200 border rounded hover:shadow py-1 px-2 cursor-pointer "
                 onClick={() => onLocationSelect(location)}
               >
-                ({location.country}) {[location.name, location.state].filter(Boolean).join(', ')}
+                {formatLocation(location)}
               </button>
             </li>
           )) : <p>No locations found</p>}
