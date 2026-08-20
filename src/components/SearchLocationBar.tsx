@@ -24,14 +24,12 @@ export default function SearchLocationBar({
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const { city } = data;
     fetchLocationData(city);
-    reset()
   };
 
   return (
