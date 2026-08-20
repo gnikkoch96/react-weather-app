@@ -77,7 +77,7 @@ export default function WeatherPage() {
       <SearchLocationBar
         locationLoading={locationLoading}
         locationError={locationError}
-        fetchLocationData={fetchLocationData}
+        onSearch={fetchLocationData}
       />
 
       {locationData && (

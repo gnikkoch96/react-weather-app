@@ -8,7 +8,7 @@ type Inputs = {
 type SearchLocationBarProps = {
   locationLoading: boolean;
   locationError: string | null;
-  fetchLocationData: (city: string) => void;
+  onSearch: (city: string) => void;
 };
 
 /*
@@ -19,7 +19,7 @@ type SearchLocationBarProps = {
 export default function SearchLocationBar({
   locationLoading,
   locationError,
-  fetchLocationData,
+  onSearch,
 }: SearchLocationBarProps) {
   const {
     register,
@@ -29,7 +29,7 @@ export default function SearchLocationBar({
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const { city } = data;
-    fetchLocationData(city);
+    onSearch(city);
   };
 
   return (
