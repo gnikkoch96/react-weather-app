@@ -8,7 +8,7 @@ import Modal from "./common/Modal.js";
 
 /*
   Responsibility:
-  1. Manage and render the user's weather configuration settings.
+  1. Manage and render the settings configuration and popup visibility.
 */
 export default function SettingsPopup() {
   const isVisible = useAppSelector((state) => state.settingsConfig.isVisible);
