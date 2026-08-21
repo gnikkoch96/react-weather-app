@@ -6,6 +6,10 @@ import { useState } from "react";
 import type { SpeedUnit, TemperatureUnit } from "../../types/weather/types.js";
 import Modal from "./common/Modal.js";
 
+/*
+  Responsibility:
+  1. Manage and render the user's weather configuration settings.
+*/
 export default function SettingsPopup({ className }: { className?: string }) {
   const isVisible = useAppSelector((state) => state.settingsConfig.isVisible);
   const dispatch = useDispatch();
