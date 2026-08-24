@@ -42,11 +42,21 @@ export default function SettingsPopup() {
       setCurrentSpeedUnit(value);
   };
 
+  const handleClose = () => {
+    dispatch(setIsVisible(false));
+  }
+
+  const handleAfterClose = () => {
+    setCurrentTemperatureUnit(globalTemperatureUnit);
+    setCurrentSpeedUnit(globalSpeedUnit);
+  }
+
   return (
     <Modal
       title="Settings"
       isVisible={isVisible}
-      onClose={() => dispatch(setIsVisible(false))}
+      onClose={handleClose}
+      onAfterClose={handleAfterClose}
     >
       {/* Temperature Unit */}
       <label className="flex gap-2">
@@ -85,7 +95,7 @@ export default function SettingsPopup() {
         {/* Save or Exit */}
         <button
           className="cursor-pointer rounded px-4 flex-1 bg-gray-300 transition-bg duration-150 ease-out hover:bg-gray-200"
-          onClick={() => dispatch(setIsVisible(false))}
+          onClick={handleClose}
         >
           Exit
         </button>
