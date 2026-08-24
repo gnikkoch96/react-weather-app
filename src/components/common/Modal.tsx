@@ -20,8 +20,8 @@ export default function Modal({
   children,
   onAfterClose,
 }: ModalPropType) {
-  const handleTransitionEnd = () => {
-    if (!isVisible) onAfterClose?.();
+  const handleTransitionEnd = (event: React.TransitionEvent<HTMLDivElement>) => {
+    if (!isVisible && event.propertyName === 'opacity') onAfterClose?.();
   };
 
   return (
