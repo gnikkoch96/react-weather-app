@@ -13,11 +13,16 @@ type ModalPropType = {
   1. Render the modal title and child content.
   2. Manage when the onClose and onAfterClose callbacks are invoked.
 */
-export default function Modal({ title, isVisible, onClose, children, onAfterClose }: ModalPropType) {
+export default function Modal({
+  title,
+  isVisible,
+  onClose,
+  children,
+  onAfterClose,
+}: ModalPropType) {
   const handleTransitionEnd = () => {
-    if(!isVisible)
-      onAfterClose?.();
-  }
+    if (!isVisible) onAfterClose?.();
+  };
 
   return (
     <div
@@ -27,8 +32,7 @@ export default function Modal({ title, isVisible, onClose, children, onAfterClos
       <div
         className={`absolute transition-all duration-500 ease-in-out min-w-screen min-h-screen ${isVisible ? "opacity-100  backdrop-blur-xs" : "opacity-0  backdrop-blur-none"}`}
         onTransitionEnd={handleTransitionEnd}
-      >
-      </div>
+      ></div>
 
       {/* Content Card */}
       <div
