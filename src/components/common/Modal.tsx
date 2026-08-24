@@ -8,6 +8,11 @@ type ModalPropType = {
   onAfterClose?: () => void;
 };
 
+/*
+  Responsibility:
+  1. Render the modal title and child content.
+  2. Manage when the onClose and onAfterClose callbacks are invoked.
+*/
 export default function Modal({ title, isVisible, onClose, children, onAfterClose }: ModalPropType) {
   const handleTransitionEnd = () => {
     if(!isVisible)
