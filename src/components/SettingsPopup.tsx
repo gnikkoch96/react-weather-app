@@ -30,16 +30,14 @@ export default function SettingsPopup() {
     event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     const value = event.target.value;
-    if (value === "fahrenheit" || value === "celcius")
-      setCurrentTemperatureUnit(value);
+    setCurrentTemperatureUnit(value as TemperatureUnit);
   };
 
   const handleSpeedUnitChange = (
     event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     const value = event.target.value;
-    if (value === "kmh" || value === "m/s" || value === "mph" || value === "kn")
-      setCurrentSpeedUnit(value);
+    setCurrentSpeedUnit(value as SpeedUnit);
   };
 
   const handleClose = () => {
