@@ -57,8 +57,8 @@ export default function SettingsPopup() {
       onAfterClose={handleAfterClose}
     >
       {/* Temperature Unit */}
-      <label className="flex gap-2">
-        <span className="flex-1/2">Temperature Unit:</span>
+      <label className="flex gap-2 justify-between">
+        <span>Temperature Unit:</span>
         <select
           className="border px-1 border-gray-500 rounded"
           name="temperature-unit"
@@ -71,10 +71,10 @@ export default function SettingsPopup() {
       </label>
 
       {/* Speed Unit */}
-      <label className="flex">
-        <span className="flex-1/4">Speed Unit:</span>
+      <label className="flex justify-between">
+        <span>Speed Unit:</span>
         <select
-          className="border px-1 border-gray-300 rounded"
+          className="border px-1 border-gray-500 rounded"
           name="speed-unit"
           onChange={handleSpeedUnitChange}
           value={currentSpeedUnit}
