@@ -67,7 +67,7 @@ export default function SettingsPopup() {
           value={currentTemperatureUnit}
         >
           <option value="fahrenheit">Farenheit</option>
-          <option value="celcius">Celcius</option>
+          <option value="celsius">Celsius</option>
         </select>
       </label>
 

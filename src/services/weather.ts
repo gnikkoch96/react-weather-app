@@ -7,8 +7,8 @@ export async function getWeather(
 ) {
   let url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,is_day,wind_speed_10m,weather_code&timezone=America%2FLos_Angeles`;
 
-  // default values like celcius and kmh don't need the string fields
-  if (temperatureUnit != "celcius") {
+  // default values like celsius and kmh don't need the string fields
+  if (temperatureUnit != "celsius") {
     url += `&temperature_unit=${temperatureUnit}`;
   }
 

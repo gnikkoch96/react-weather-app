@@ -13,6 +13,6 @@ export type WeatherData = {
   weather_code: number;
 };
 
-export type TemperatureUnit = 'fahrenheit' | 'celcius';
+export type TemperatureUnit = 'fahrenheit' | 'celsius';
 
 export type SpeedUnit = 'kmh' | 'm/s' | 'mph' | 'kn';

@@ -3,7 +3,7 @@ import type { TemperatureUnit, SpeedUnit } from "../../types/weather/types.js";
 
 // intialize the state for the slice
 const initialState: { temperatureUnit: TemperatureUnit; speedUnit: SpeedUnit } =
-  { temperatureUnit: "celcius", speedUnit: "kmh" };
+  { temperatureUnit: "celsius", speedUnit: "kmh" };
 
 const weatherSlice = createSlice({
   name: "weatherConfig",
