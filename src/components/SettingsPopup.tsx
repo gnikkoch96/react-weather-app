@@ -66,7 +66,7 @@ export default function SettingsPopup() {
           onChange={handleTemperatureUnitChange}
           value={currentTemperatureUnit}
         >
-          <option value="fahrenheit">Farenheit</option>
+          <option value="fahrenheit">Fahrenheit</option>
           <option value="celsius">Celsius</option>
         </select>
       </label>
