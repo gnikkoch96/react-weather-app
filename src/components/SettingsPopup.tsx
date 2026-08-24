@@ -100,7 +100,7 @@ export default function SettingsPopup() {
           Exit
         </button>
         <button
-          className="cursor-pointer rounded px-4 flex-1 transition-opacity duration-150 ease out hover:opacity-75 bg-linear-to-r from-blue-600 to-blue-400 text-white"
+          className="cursor-pointer rounded px-4 flex-1 transition-opacity duration-150 ease-out hover:opacity-75 bg-linear-to-r from-blue-600 to-blue-400 text-white"
           onClick={() => {
             dispatch(setTemperatureUnit(currentTemperatureUnit));
             dispatch(setSpeedUnit(currentSpeedUnit));

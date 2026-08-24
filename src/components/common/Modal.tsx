@@ -28,7 +28,6 @@ export default function Modal({ title, isVisible, onClose, children, onAfterClos
       {/* Content Card */}
       <div
         className={`z-10 transform-size duration-500 ease-in flex ${isVisible ? "scale-100" : "scale-0"} flex-col gap-4 p-4 text-2xl shadow-2xl rounded border bg-white`}
-        
       >
         {/* Settings Label and X button */}
         <div className="w-full flex justify-between">
