@@ -45,7 +45,7 @@ export default function Modal({
             onClick={onClose}
             className="cursor-pointer rounded transition-bg duration-150 ease-out hover:bg-gray-200"
           >
-            <X className="" size={24} />
+            <X size={24} />
           </button>
         </div>
         {children}
