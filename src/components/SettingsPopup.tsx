@@ -62,7 +62,6 @@ export default function SettingsPopup() {
         <select
           className="border px-1 border-gray-500 rounded"
           name="temperature-unit"
-          id=""
           onChange={handleTemperatureUnitChange}
           value={currentTemperatureUnit}
         >
@@ -77,7 +76,6 @@ export default function SettingsPopup() {
         <select
           className="border px-1 border-gray-300 rounded"
           name="speed-unit"
-          id=""
           onChange={handleSpeedUnitChange}
           value={currentSpeedUnit}
         >
