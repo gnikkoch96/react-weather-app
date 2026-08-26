@@ -13,6 +13,7 @@ type ModalPropType = {
   Responsibility:
   1. Render the modal title and child content.
   2. Manage when the onClose and onAfterClose callbacks are invoked.
+  3. Provide accessible modal behavior and keyboard interaction.
 */
 export default function Modal({
   title,
