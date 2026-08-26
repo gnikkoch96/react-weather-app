@@ -1,4 +1,5 @@
 import { X } from "lucide-react";
+import { useEffect } from "react";
 
 type ModalPropType = {
   isVisible: boolean;
@@ -20,8 +21,22 @@ export default function Modal({
   children,
   onAfterClose,
 }: ModalPropType) {
-  const handleTransitionEnd = (event: React.TransitionEvent<HTMLDivElement>) => {
-    if (!isVisible && event.propertyName === 'opacity') onAfterClose?.();
+  useEffect(() => {
+    if (isVisible) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isVisible]);
+
+  const handleTransitionEnd = (
+    event: React.TransitionEvent<HTMLDivElement>,
+  ) => {
+    if (!isVisible && event.propertyName === "opacity") onAfterClose?.();
   };
 
   return (
