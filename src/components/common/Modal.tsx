@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 type ModalPropType = {
   isVisible: boolean;
@@ -22,6 +22,14 @@ export default function Modal({
   children,
   onAfterClose,
 }: ModalPropType) {
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if(isVisible){
+      modalRef.current?.focus()
+    }
+  }, [isVisible])
+
   useEffect(() => {
     if (isVisible) {
       document.body.style.overflow = "hidden";
@@ -61,6 +69,7 @@ export default function Modal({
       className={`fixed inset-0 ${isVisible ? "pointer-events-auto" : "pointer-events-none"} min-w-screen min-h-screen flex justify-center items-center bg-transparent`}
       role="dialog"
       aria-modal={true}
+      ref={modalRef}
     >
       {/* Backdrop */}
       <div
