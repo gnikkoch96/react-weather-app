@@ -34,6 +34,22 @@ export default function Modal({
     };
   }, [isVisible]);
 
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isVisible, onClose]);
+
   const handleTransitionEnd = (
     event: React.TransitionEvent<HTMLDivElement>,
   ) => {
