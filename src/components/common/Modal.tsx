@@ -43,6 +43,8 @@ export default function Modal({
   return (
     <div
       className={`fixed inset-0 ${isVisible ? "pointer-events-auto" : "pointer-events-none"} min-w-screen min-h-screen flex justify-center items-center bg-transparent`}
+      role="dialog"
+      aria-modal={true}
     >
       {/* Backdrop */}
       <div
