@@ -21,6 +21,12 @@ type LocationApiData = {
   admin4?: string;
 };
 
+/* 
+  Responsibility
+  1. Acts as the service layer for location retrieval
+  2. Fetches location data from Geolocation API
+  3. Transforms Geolocation API data into the app's LocationData format
+*/
 export async function getLocation(cityName: string) {
   const formattedCityName = cityName.trim().replaceAll(" ", "+").toLowerCase();
 
