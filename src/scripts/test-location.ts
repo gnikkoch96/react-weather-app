@@ -1,4 +1,4 @@
-import { getLocation } from "../services/location.js";
+import { searchLocations } from "../services/location.js";
 
-console.log(await getLocation('Long Beach'));
+console.log(await searchLocations('Long Beach'));
 

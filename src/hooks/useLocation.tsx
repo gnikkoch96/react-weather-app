@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getLocation } from "../services/location.js";
+import { searchLocations } from "../services/location.js";
 import type { LocationData } from "../../types/location/types.js";
 
 export function useLocation() {
@@ -11,7 +11,7 @@ export function useLocation() {
     setIsLoading(true);
 
     try {
-      const data = await getLocation(city);
+      const data = await searchLocations(city);
       setLocationData(data);
     } catch (error) {
       if (error instanceof Error) {

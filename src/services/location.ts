@@ -27,7 +27,7 @@ type LocationApiData = {
   2. Fetches location data from Geolocation API
   3. Transforms Geolocation API data into the app's LocationData format
 */
-export async function getLocation(cityName: string) {
+export async function searchLocations(cityName: string) {
   const formattedCityName = encodeURIComponent(cityName.trim().toLowerCase());
 
   if(!formattedCityName){
