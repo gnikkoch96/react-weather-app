@@ -25,10 +25,19 @@ export default function Modal({
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if(isVisible){
-      modalRef.current?.focus()
+    const focusableElements = Array.from(
+      modalRef.current?.querySelectorAll<HTMLElement>(
+        "button, input, select, textarea, a[href]",
+      ) ?? [],
+    );
+
+    if (isVisible) {
+      console.log("Adding focus to Modal");
+      if(focusableElements.length === 0) return;
+
+      focusableElements[0]?.focus();
     }
-  }, [isVisible])
+  }, [isVisible]);
 
   useEffect(() => {
     if (isVisible) {
@@ -48,6 +57,30 @@ export default function Modal({
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         onClose();
+      }
+
+      if (event.key === "Tab") {
+        const focusableElements = Array.from(
+          modalRef.current?.querySelectorAll<HTMLElement>(
+            "button, input, select, textarea, a[href]",
+          ) ?? [],
+        );
+
+        if (focusableElements.length === 0) return;
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        const activeElement = document.activeElement;
+        if (!event.shiftKey && activeElement === lastElement) {
+          event.preventDefault();
+          firstElement?.focus();
+        }
+
+        if (event.shiftKey && activeElement === firstElement) {
+          event.preventDefault();
+          lastElement?.focus();
+        }
       }
     };
 
