@@ -24,21 +24,22 @@ export default function Modal({
 }: ModalPropType) {
   const modalRef = useRef<HTMLDivElement>(null);
 
+  // find the first focusable actionable element and focus on that
   useEffect(() => {
-    const focusableElements = Array.from(
-      modalRef.current?.querySelectorAll<HTMLElement>(
-        "button, input, select, textarea, a[href]",
-      ) ?? [],
-    );
-
     if (isVisible) {
-      console.log("Adding focus to Modal");
-      if(focusableElements.length === 0) return;
+      const focusableElements = Array.from(
+        modalRef.current?.querySelectorAll<HTMLElement>(
+          "button, input, select, textarea, a[href]",
+        ) ?? [],
+      );
+
+      if (focusableElements.length === 0) return;
 
       focusableElements[0]?.focus();
     }
   }, [isVisible]);
 
+  // prevent background from scrolling
   useEffect(() => {
     if (isVisible) {
       document.body.style.overflow = "hidden";
@@ -51,6 +52,7 @@ export default function Modal({
     };
   }, [isVisible]);
 
+  // handle keystrokes
   useEffect(() => {
     if (!isVisible) return;
 
