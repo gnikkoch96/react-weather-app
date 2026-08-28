@@ -110,6 +110,7 @@ export default function Modal({
       <div
         className={`absolute transition-all duration-200 ease-in-out min-w-screen min-h-screen ${isVisible ? "opacity-100  backdrop-blur-xs" : "opacity-0  backdrop-blur-none"}`}
         onTransitionEnd={handleTransitionEnd}
+        onClick={onClose}
       ></div>
 
       {/* Content Card */}
