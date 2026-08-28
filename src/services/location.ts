@@ -28,7 +28,7 @@ type LocationApiData = {
   3. Transforms Geolocation API data into the app's LocationData format
 */
 export async function getLocation(cityName: string) {
-  const formattedCityName = cityName.trim().replaceAll(" ", "+").toLowerCase();
+  const formattedCityName = encodeURIComponent(cityName.trim().toLowerCase());
 
   if(!formattedCityName){
     throw new Error("City name cannot be empty");
