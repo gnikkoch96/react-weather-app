@@ -24,14 +24,18 @@ export default function Modal({
 }: ModalPropType) {
   const modalRef = useRef<HTMLDivElement>(null);
 
+  const getFocusableElements = () => {
+    return Array.from(
+      modalRef.current?.querySelectorAll<HTMLElement>(
+        "button, input, select, textarea, a[href]",
+      ) ?? [],
+    );
+  };
+
   // find the first focusable actionable element and focus on that
   useEffect(() => {
     if (isVisible) {
-      const focusableElements = Array.from(
-        modalRef.current?.querySelectorAll<HTMLElement>(
-          "button, input, select, textarea, a[href]",
-        ) ?? [],
-      );
+      const focusableElements = getFocusableElements();
 
       if (focusableElements.length === 0) return;
 
@@ -62,11 +66,7 @@ export default function Modal({
       }
 
       if (event.key === "Tab") {
-        const focusableElements = Array.from(
-          modalRef.current?.querySelectorAll<HTMLElement>(
-            "button, input, select, textarea, a[href]",
-          ) ?? [],
-        );
+        const focusableElements = getFocusableElements();
 
         if (focusableElements.length === 0) return;
 
