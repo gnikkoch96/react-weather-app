@@ -1,5 +1,5 @@
 import type { LocationData } from "../../types/location/types.js";
-import {z} from 'zod'
+import { z, ZodError } from "zod";
 
 type LocationApiData = {
   id: number;
@@ -29,12 +29,12 @@ const locationSchema = z.object({
   longitude: z.number(),
   country: z.string().optional(),
   admin1: z.string().optional(),
-  admin2: z.string().optional()
+  admin2: z.string().optional(),
 });
 
 const locationsSchema = z.array(locationSchema);
 
-/* 
+/*  
   Responsibility
   1. Acts as the service layer for location retrieval
   2. Fetches location data from Geolocation API
@@ -43,7 +43,7 @@ const locationsSchema = z.array(locationSchema);
 export async function searchLocations(cityName: string) {
   const formattedCityName = encodeURIComponent(cityName.trim().toLowerCase());
 
-  if(!formattedCityName){
+  if (!formattedCityName) {
     throw new Error("City name cannot be empty");
   }
 
@@ -56,16 +56,25 @@ export async function searchLocations(cityName: string) {
   }
 
   const result = await response.json();
-  const resultsArr = locationsSchema.parse(result.results);
-  const locationData: LocationData[] = resultsArr.map((location) => ({
-    id: location.id,
-    name: location.name,
-    latitude: location.latitude,
-    longitude: location.longitude,
-    country: location.country || "Unknown Country",
-    state: location.admin1 || "Unknown State",
-    county: location.admin2 || "Unknown County",
-  }));
 
-  return locationData;
+  try {
+    const resultsArr = locationsSchema.parse(result.results);
+
+    const locationData: LocationData[] = resultsArr.map((location) => ({
+      id: location.id,
+      name: location.name,
+      latitude: location.latitude,
+      longitude: location.longitude,
+      country: location.country || "Unknown Country",
+      state: location.admin1 || "Unknown State",
+      county: location.admin2 || "Unknown County",
+    }));
+
+    return locationData;
+  } catch (error) {
+    console.error("Invalid location API response: ", error);
+    throw new Error(
+      "Something went wrong with fetching location. Please try again later.",
+    );
+  }
 }
