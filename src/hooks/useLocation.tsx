@@ -15,6 +15,7 @@ export function useLocation() {
 
   const fetchLocationData = async (city: string) => {
     setIsLoading(true);
+    setError(null);
 
     try {
       const data = await searchLocations(city);
