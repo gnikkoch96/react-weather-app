@@ -42,6 +42,7 @@ const locationsSchema = z.array(locationSchema);
 */
 export async function searchLocations(cityName: string) {
   const formattedCityName = encodeURIComponent(cityName.trim().toLowerCase());
+  const controller = new AbortController();
 
   if (!formattedCityName) {
     throw new Error("City name cannot be empty");
@@ -49,18 +50,22 @@ export async function searchLocations(cityName: string) {
 
   const url = `https://geocoding-api.open-meteo.com/v1/search?name=${formattedCityName}&count=5&language=en&format=json`;
 
-  const response = await fetch(url);
-
-  if (!response.ok) {
-    console.error("Location API request failed:", response.status);
-    throw new Error(
-      "Something went wrong reaching the location server. Please try again later.",
-    );
-  }
-
-  const result = await response.json();
+  const timer = setTimeout(() => {
+    controller.abort();
+  }, 10000);
 
   try {
+    const response = await fetch(url, { signal: controller.signal });
+
+    if (!response.ok) {
+      console.error("Location API request failed:", response.status);
+      throw new Error(
+        "Something went wrong reaching the location server. Please try again later.",
+      );
+    }
+
+    const result = await response.json();
+
     const resultsArr = locationsSchema.parse(result.results);
 
     const locationData: LocationData[] = resultsArr.map((location) => ({
@@ -75,9 +80,21 @@ export async function searchLocations(cityName: string) {
 
     return locationData;
   } catch (error) {
-    console.error("Invalid location API response: ", error);
-    throw new Error(
-      "Something went wrong with fetching location. Please try again later.",
-    );
+    if (error instanceof ZodError) {
+      console.error("Invalid location API response: ", error);
+      throw new Error(
+        "Something went wrong with fetching location. Please try again later.",
+      );
+    }
+
+    if (error instanceof DOMException && error.name === "AbortError") {
+      console.error("API Response timeout: ", error);
+      throw new Error('The location request took too long and was canceled. Please try again.');
+    }
+
+    console.error("Unexpected Error: ", error);
+    throw new Error("Something went wrong, please try again later.");
+  } finally {
+    clearInterval(timer);
   }
 }
