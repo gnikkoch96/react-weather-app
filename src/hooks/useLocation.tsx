@@ -2,6 +2,12 @@ import { useState, useEffect } from "react";
 import { searchLocations } from "../services/location.js";
 import type { LocationData } from "../../types/location/types.js";
 
+/*
+  Responsibility:
+  1. Orchestrates and manages the location service calls
+  2. Returns the state of the location service calls
+  3. Provides an action function that components can use to interact with the service layer from the hook
+*/
 export function useLocation() {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
