@@ -1,4 +1,5 @@
 import type { LocationData } from "../../types/location/types.js";
+import {z} from 'zod'
 
 type LocationApiData = {
   id: number;
@@ -20,6 +21,18 @@ type LocationApiData = {
   admin3?: string;
   admin4?: string;
 };
+
+const locationSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  latitude: z.number(),
+  longitude: z.number(),
+  country: z.string().optional(),
+  admin1: z.string().optional(),
+  admin2: z.string().optional()
+});
+
+const locationsSchema = z.array(locationSchema);
 
 /* 
   Responsibility
@@ -43,12 +56,7 @@ export async function searchLocations(cityName: string) {
   }
 
   const result = await response.json();
-
-  if (!result.results) {
-    throw new Error("Invalid location response");
-  }
-
-  const resultsArr: LocationApiData[] = result.results;
+  const resultsArr = locationsSchema.parse(result.results);
   const locationData: LocationData[] = resultsArr.map((location) => ({
     id: location.id,
     name: location.name,
