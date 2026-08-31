@@ -1,27 +1,6 @@
 import type { LocationData } from "../../types/location/types.js";
 import { z, ZodError } from "zod";
 
-type LocationApiData = {
-  id: number;
-  name: string;
-  latitude: number;
-  longitude: number;
-  elevation: number;
-  feature_code: string;
-  country_code: string;
-  admin1_id: number;
-  admin2_id: number;
-  timezone: string;
-  population: number;
-  postcodes: string[];
-  country_id: number;
-  country?: string;
-  admin1?: string;
-  admin2?: string;
-  admin3?: string;
-  admin4?: string;
-};
-
 const locationSchema = z.object({
   id: z.number(),
   name: z.string(),
