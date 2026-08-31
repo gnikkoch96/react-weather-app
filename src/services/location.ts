@@ -52,7 +52,10 @@ export async function searchLocations(cityName: string) {
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error(`Response Stats: ${response.status}`);
+    console.error("Location API request failed:", response.status);
+    throw new Error(
+      "Something went wrong reaching the location server. Please try again later.",
+    );
   }
 
   const result = await response.json();
