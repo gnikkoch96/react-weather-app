@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { searchLocations } from "../services/location.js";
 import type { LocationData } from "../../types/location/types.js";
 
