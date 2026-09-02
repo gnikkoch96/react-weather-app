@@ -36,7 +36,7 @@ export async function getWeather(
 
   const timeoutController = new AbortController();
 
-  const timer = setInterval(() => {
+  const timer = setTimeout(() => {
     timeoutController.abort();
   }, 10000);
 
@@ -71,5 +71,7 @@ export async function getWeather(
   } catch (error) {
     console.error("Unexpected Error: ", error);
     throw new Error("Something went wrong, please try again later.");
+  }finally{
+    clearTimeout(timer);
   }
 }
