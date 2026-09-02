@@ -2,6 +2,12 @@ import { useState, useEffect, useCallback } from "react";
 import type { Coordinates, WeatherData } from "../../types/weather/types.js";
 import { getWeather } from "../services/weather.js";
 
+/**
+ * Responsibility:
+ * 1. Orchestrates and manages weather service calls.
+ * 2. Returns the state of weather service calls.
+ * 3. Provides an action function for callers to execute weather service calls.
+ */
 export function useWeather() {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
