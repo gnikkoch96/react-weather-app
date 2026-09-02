@@ -1,4 +1,4 @@
-import type { Coordinates, WeatherData } from "../../types/weather/types.js";
+import type { Coordinates } from "../../types/weather/types.js";
 import { z, ZodError } from "zod";
 import { createAbortSignal } from "../utils/abort.js";
 
