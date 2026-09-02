@@ -1,5 +1,6 @@
 import type { Coordinates, WeatherData } from "../../types/weather/types.js";
 import { z, ZodError } from "zod";
+import { createAbortSignal } from "../utils/abort.js";
 
 const weatherSchema = z.object({
   time: z.string(),
@@ -34,19 +35,10 @@ export async function getWeather(
     url += `&wind_speed_unit=${speedUnit}`;
   }
 
-  const timeoutController = new AbortController();
-
-  const timer = setTimeout(() => {
-    timeoutController.abort();
-  }, 10000);
-
-  const signals = [timeoutController.signal, externalSignal].filter(
-    (signal): signal is AbortSignal => signal !== undefined,
-  );
-  const combinedSignal = AbortSignal.any(signals);
+  const { signal, signalCleanup } = createAbortSignal(externalSignal);
 
   try {
-    const response = await fetch(url, { signal: combinedSignal });
+    const response = await fetch(url, { signal: signal });
 
     if (!response.ok) {
       console.error("Weather API Request Failed: ", response.status);
@@ -86,6 +78,6 @@ export async function getWeather(
     console.error("Unexpected Error: ", error);
     throw new Error("Something went wrong, please try again later.");
   } finally {
-    clearTimeout(timer);
+    signalCleanup();
   }
 }
