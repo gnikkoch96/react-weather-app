@@ -8,7 +8,7 @@ export type WeatherData = {
   is_day: number;
   relative_humidity: number;
   temperature: number;
-  time: number;
+  time: string;
   wind_speed: number;
   weather_code: number;
 };
