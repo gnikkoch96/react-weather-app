@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import type { Coordinates, SpeedUnit, TemperatureUnit, WeatherData } from "../../types/weather/types.js";
 import { getWeather } from "../services/weather.js";
 
@@ -12,6 +12,14 @@ export function useWeather() {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const controllerRef = useRef<AbortController | null>(null);
+
+  // when component unmounts make sure to abort any requests that were made
+  useEffect(() => {
+    return(() => {
+      controllerRef.current?.abort();
+    })
+  }, [])
 
   const fetchWeatherData = useCallback(
     async (
@@ -20,12 +28,20 @@ export function useWeather() {
       speedUnit: SpeedUnit,
     ) => {
       try {
+        // abort any other fetches that are being made to focus only on this request
+        controllerRef.current?.abort();
+        const newController = new AbortController();
+        controllerRef.current = newController;
+
         setIsLoading(true);
+        // todo setError(null);
+        // todo setWeatherData(null);
 
         const data = await getWeather(
           { latitude, longitude },
           temperatureUnit,
           speedUnit,
+          controllerRef.current.signal
         );
 
         setWeatherData(data);
