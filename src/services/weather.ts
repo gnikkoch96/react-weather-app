@@ -1,4 +1,4 @@
-import type { Coordinates } from "../../types/weather/types.js";
+import type { Coordinates, SpeedUnit, TemperatureUnit } from "../../types/weather/types.js";
 import { z, ZodError } from "zod";
 import { createAbortSignal } from "../utils/abort.js";
 
@@ -20,8 +20,8 @@ const weatherSchema = z.object({
  */
 export async function getWeather(
   { latitude, longitude }: Coordinates,
-  temperatureUnit: string,
-  speedUnit: string,
+  temperatureUnit: TemperatureUnit,
+  speedUnit: SpeedUnit,
   externalSignal?: AbortSignal,
 ) {
   let url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,is_day,wind_speed_10m,weather_code&timezone=America%2FLos_Angeles`;
