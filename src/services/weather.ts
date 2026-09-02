@@ -43,7 +43,7 @@ export async function getWeather(
     if (!response.ok) {
       console.error("Weather API Request Failed: ", response.status);
       throw new Error(
-        `Something went wrong when trying reaching weather server. Please try again later.`,
+        `Something went wrong when trying to reach the weather server. Please try again later.`,
       );
     }
 
@@ -62,16 +62,16 @@ export async function getWeather(
     };
   } catch (error) {
     if (error instanceof ZodError) {
-      console.error("Invalid location API response: ", error);
+      console.error("Invalid weather API response: ", error);
       throw new Error(
-        "Something went wrong with fetching location. Please try again later.",
+        "Something went wrong with fetching weather. Please try again later.",
       );
     }
 
     if (error instanceof DOMException && error.name === "AbortError") {
       console.error("API Response timeout: ", error);
       throw new Error(
-        "The location request took too long and was canceled. Please try again.",
+        "The weather request took too long and was canceled. Please try again.",
       );
     }
 
