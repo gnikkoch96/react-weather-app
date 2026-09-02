@@ -35,7 +35,7 @@ export async function getWeather(
     url += `&wind_speed_unit=${speedUnit}`;
   }
 
-  const { signal, signalCleanup } = createAbortSignal(externalSignal);
+  const { signal, timeoutCleanup } = createAbortSignal(externalSignal);
 
   try {
     const response = await fetch(url, { signal: signal });
@@ -78,6 +78,6 @@ export async function getWeather(
     console.error("Unexpected Error: ", error);
     throw new Error("Something went wrong, please try again later.");
   } finally {
-    signalCleanup();
+    timeoutCleanup();
   }
 }

@@ -22,6 +22,6 @@ export function createAbortSignal(
 
   return {
     signal: AbortSignal.any(signals),
-    signalCleanup: cleanup
+    timeoutCleanup: cleanup
   }
 }
