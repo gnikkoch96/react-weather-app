@@ -29,6 +29,7 @@ export function useLocation() {
 
     setIsLoading(true);
     setError(null);
+    setLocationData(null);
 
     try {
       const data = await searchLocations(city, controllerRef.current.signal);
