@@ -23,8 +23,19 @@ export async function getWeather(
     url += `&wind_speed_unit=${speedUnit}`;
   }
 
+  const timeoutController = new AbortController();
+
+  const timer = setInterval(() => {
+    timeoutController.abort();
+  }, 10000);
+
+  const signals = [timeoutController.signal, externalSignal].filter(
+    (signal): signal is AbortSignal => signal !== undefined,
+  );
+  const combinedSignal = AbortSignal.any(signals);
+
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, {signal: combinedSignal});
 
     if (!response.ok) {
       console.error("Weather API Request Failed: ", response.status);
@@ -47,5 +58,5 @@ export async function getWeather(
   } catch (error) {
     console.error("Unexpected Error: ", error);
     throw new Error("Something went wrong, please try again later.");
-  } 
+  }
 }
