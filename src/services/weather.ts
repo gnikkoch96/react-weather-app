@@ -1,5 +1,5 @@
 import type { Coordinates, WeatherData } from "../../types/weather/types.js";
-import { z } from "zod";
+import { z, ZodError } from "zod";
 
 const weatherSchema = z.object({
   time: z.string(),
@@ -69,9 +69,23 @@ export async function getWeather(
       weather_code: weatherData.weather_code,
     };
   } catch (error) {
+    if (error instanceof ZodError) {
+      console.error("Invalid location API response: ", error);
+      throw new Error(
+        "Something went wrong with fetching location. Please try again later.",
+      );
+    }
+
+    if (error instanceof DOMException && error.name === "AbortError") {
+      console.error("API Response timeout: ", error);
+      throw new Error(
+        "The location request took too long and was canceled. Please try again.",
+      );
+    }
+
     console.error("Unexpected Error: ", error);
     throw new Error("Something went wrong, please try again later.");
-  }finally{
+  } finally {
     clearTimeout(timer);
   }
 }
