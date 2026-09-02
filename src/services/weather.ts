@@ -1,5 +1,11 @@
 import type { Coordinates } from "../../types/weather/types.js";
 
+/**
+ * Responsibility:
+ * 1. Acts as the service layer between the hook and the weather API.
+ * 2. Fetches weather data from the weather API.
+ * 3. Adapts weather data to the app's expected data format.
+ */
 export async function getWeather(
   { latitude, longitude }: Coordinates,
   temperatureUnit: string,
@@ -32,5 +38,5 @@ export async function getWeather(
     is_day: result.current.is_day,
     wind_speed: result.current.wind_speed_10m,
     weather_code: result.current.weather_code,
-  }
+  };
 }
