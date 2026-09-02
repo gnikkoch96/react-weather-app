@@ -34,8 +34,8 @@ export function useWeather() {
         controllerRef.current = newController;
 
         setIsLoading(true);
-        // todo setError(null);
-        // todo setWeatherData(null);
+        setError(null);
+        setWeatherData(null);
 
         const data = await getWeather(
           { latitude, longitude },
