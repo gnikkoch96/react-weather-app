@@ -1,5 +1,10 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import type { Coordinates, SpeedUnit, TemperatureUnit, WeatherData } from "../../types/weather/types.js";
+import type {
+  Coordinates,
+  SpeedUnit,
+  TemperatureUnit,
+  WeatherData,
+} from "../../types/weather/types.js";
 import { getWeather } from "../services/weather.js";
 
 /**
@@ -16,10 +21,10 @@ export function useWeather() {
 
   // when component unmounts make sure to abort any requests that were made
   useEffect(() => {
-    return(() => {
+    return () => {
       controllerRef.current?.abort();
-    })
-  }, [])
+    };
+  }, []);
 
   const fetchWeatherData = useCallback(
     async (
@@ -27,12 +32,12 @@ export function useWeather() {
       temperatureUnit: TemperatureUnit,
       speedUnit: SpeedUnit,
     ) => {
-      try {
-        // abort any other fetches that are being made to focus only on this request
-        controllerRef.current?.abort();
-        const newController = new AbortController();
-        controllerRef.current = newController;
+      // abort any other fetches that are being made to focus only on this request
+      controllerRef.current?.abort();
+      const newController = new AbortController();
+      controllerRef.current = newController;
 
+      try {
         setIsLoading(true);
         setError(null);
         setWeatherData(null);
@@ -41,18 +46,22 @@ export function useWeather() {
           { latitude, longitude },
           temperatureUnit,
           speedUnit,
-          controllerRef.current.signal
+          controllerRef.current.signal,
         );
 
-        setWeatherData(data);
+        if (newController === controllerRef.current) setWeatherData(data);
       } catch (error) {
-        if (error instanceof Error) {
-          setError(error.message);
-        } else {
-          setError("An unexpected error occurred");
+        if (newController === controllerRef.current) {
+          if (error instanceof Error) {
+            setError(error.message);
+          } else {
+            setError("An unexpected error occurred");
+          }
         }
       } finally {
-        setIsLoading(false);
+        if (newController === controllerRef.current) {
+          setIsLoading(false);
+        }
       }
     },
     [],
