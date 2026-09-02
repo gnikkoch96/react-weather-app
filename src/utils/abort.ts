@@ -1,4 +1,7 @@
-
+/*
+    Responsibility:
+    1. Combines an optional external abort signal with a timeout signal and provides a cleanup function for the timeout.
+*/
 export function createAbortSignal(
   externalSignal?: AbortSignal,
   timeoutMs = 10000,
