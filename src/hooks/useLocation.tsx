@@ -12,18 +12,18 @@ export function useLocation() {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [locationData, setLocationData] = useState<LocationData[] | null>(null);
-  const controllerRef = useRef(new AbortController());
+  const controllerRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     // abort requests to location when hook gets unmounted
     return () => {
-      controllerRef.current.abort();
+      controllerRef.current?.abort();
     };
   }, []);
 
   const fetchLocationData = async (city: string) => {
     // if there were any request being made abort them
-    controllerRef.current.abort();
+    controllerRef.current?.abort();
     const newController = new AbortController();
     controllerRef.current = newController;
 
@@ -32,7 +32,7 @@ export function useLocation() {
     setLocationData(null);
 
     try {
-      const data = await searchLocations(city, controllerRef.current.signal);
+      const data = await searchLocations(city, controllerRef.current?.signal);
       setLocationData(data);
     } catch (error) {
       if (error instanceof Error) {
