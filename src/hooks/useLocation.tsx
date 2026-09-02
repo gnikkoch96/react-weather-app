@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { searchLocations } from "../services/location.js";
 import type { LocationData } from "../../types/location/types.js";
 
@@ -12,13 +12,26 @@ export function useLocation() {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [locationData, setLocationData] = useState<LocationData[] | null>(null);
+  const controllerRef = useRef(new AbortController());
+
+  useEffect(() => {
+    // abort requests to location when hook gets unmounted
+    return () => {
+      controllerRef.current.abort();
+    };
+  }, []);
 
   const fetchLocationData = async (city: string) => {
+    // if there were any request being made abort them
+    controllerRef.current.abort();
+    const newController = new AbortController();
+    controllerRef.current = newController;
+
     setIsLoading(true);
     setError(null);
 
     try {
-      const data = await searchLocations(city);
+      const data = await searchLocations(city, controllerRef.current.signal);
       setLocationData(data);
     } catch (error) {
       if (error instanceof Error) {
@@ -27,7 +40,8 @@ export function useLocation() {
         setError("An unexpected error occurred");
       }
     } finally {
-      setIsLoading(false);
+      if(newController === controllerRef.current) 
+        setIsLoading(false);
     }
   };
 
@@ -35,6 +49,6 @@ export function useLocation() {
     error,
     isLoading,
     locationData,
-    fetchLocationData
+    fetchLocationData,
   };
 }

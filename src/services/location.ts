@@ -19,9 +19,12 @@ const locationsSchema = z.array(locationSchema);
   2. Fetches location data from Geolocation API
   3. Transforms Geolocation API data into the app's LocationData format
 */
-export async function searchLocations(cityName: string) {
+export async function searchLocations(
+  cityName: string,
+  externalSignal?: AbortSignal,
+) {
   const formattedCityName = encodeURIComponent(cityName.trim().toLowerCase());
-  const controller = new AbortController();
+  const timeoutController = new AbortController();
 
   if (!formattedCityName) {
     throw new Error("City name cannot be empty");
@@ -30,11 +33,17 @@ export async function searchLocations(cityName: string) {
   const url = `https://geocoding-api.open-meteo.com/v1/search?name=${formattedCityName}&count=5&language=en&format=json`;
 
   const timer = setTimeout(() => {
-    controller.abort();
+    timeoutController.abort();
   }, 10000);
 
+  const signals = [timeoutController.signal, externalSignal].filter(
+    (signal): signal is AbortSignal => signal !== undefined,
+  );
+
+  const combinedSignal = AbortSignal.any(signals);
+
   try {
-    const response = await fetch(url, { signal: controller.signal });
+    const response = await fetch(url, { signal: combinedSignal });
 
     if (!response.ok) {
       console.error("Location API request failed:", response.status);
@@ -68,7 +77,9 @@ export async function searchLocations(cityName: string) {
 
     if (error instanceof DOMException && error.name === "AbortError") {
       console.error("API Response timeout: ", error);
-      throw new Error('The location request took too long and was canceled. Please try again.');
+      throw new Error(
+        "The location request took too long and was canceled. Please try again.",
+      );
     }
 
     console.error("Unexpected Error: ", error);
