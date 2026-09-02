@@ -1,4 +1,15 @@
-import type { Coordinates } from "../../types/weather/types.js";
+import type { Coordinates, WeatherData } from "../../types/weather/types.js";
+import { z } from "zod";
+
+const weatherSchema = z.object({
+  time: z.string(),
+  interval: z.number(),
+  temperature_2m: z.number(),
+  relative_humidity_2m: z.number(),
+  is_day: z.number(),
+  wind_speed_10m: z.number(),
+  weather_code: z.number(),
+});
 
 /**
  * Responsibility:
@@ -35,7 +46,7 @@ export async function getWeather(
   const combinedSignal = AbortSignal.any(signals);
 
   try {
-    const response = await fetch(url, {signal: combinedSignal});
+    const response = await fetch(url, { signal: combinedSignal });
 
     if (!response.ok) {
       console.error("Weather API Request Failed: ", response.status);
@@ -46,14 +57,16 @@ export async function getWeather(
 
     const result = await response.json();
 
+    const weatherData = weatherSchema.parse(result.current);
+
     return {
-      time: result.current.time,
-      interval: result.current.interval,
-      temperature: result.current.temperature_2m,
-      relative_humidity: result.current.relative_humidity_2m,
-      is_day: result.current.is_day,
-      wind_speed: result.current.wind_speed_10m,
-      weather_code: result.current.weather_code,
+      time: weatherData.time,
+      interval: weatherData.interval,
+      temperature: weatherData.temperature_2m,
+      relative_humidity: weatherData.relative_humidity_2m,
+      is_day: weatherData.is_day,
+      wind_speed: weatherData.wind_speed_10m,
+      weather_code: weatherData.weather_code,
     };
   } catch (error) {
     console.error("Unexpected Error: ", error);
