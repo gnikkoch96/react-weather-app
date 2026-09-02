@@ -85,6 +85,6 @@ export async function searchLocations(
     console.error("Unexpected Error: ", error);
     throw new Error("Something went wrong, please try again later.");
   } finally {
-    clearInterval(timer);
+    clearTimeout(timer);
   }
 }
