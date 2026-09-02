@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import type { Coordinates, WeatherData } from "../../types/weather/types.js";
+import type { Coordinates, SpeedUnit, TemperatureUnit, WeatherData } from "../../types/weather/types.js";
 import { getWeather } from "../services/weather.js";
 
 /**
@@ -16,8 +16,8 @@ export function useWeather() {
   const fetchWeatherData = useCallback(
     async (
       { latitude, longitude }: Coordinates,
-      temperatureUnit: string,
-      speedUnit: string,
+      temperatureUnit: TemperatureUnit,
+      speedUnit: SpeedUnit,
     ) => {
       try {
         setIsLoading(true);
