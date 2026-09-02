@@ -19,17 +19,28 @@ export function useWeather() {
       temperatureUnit: string,
       speedUnit: string,
     ) => {
-      setIsLoading(true);
+      try {
+        setIsLoading(true);
 
-      const data = await getWeather(
-        { latitude, longitude },
-        temperatureUnit,
-        speedUnit,
-      );
+        const data = await getWeather(
+          { latitude, longitude },
+          temperatureUnit,
+          speedUnit,
+        );
 
-      setWeatherData(data);
-      setIsLoading(false);
-    }, []);
+        setWeatherData(data);
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError("An unexpected error occurred");
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [],
+  );
 
   return { error, isLoading, weatherData, fetchWeatherData };
 }
