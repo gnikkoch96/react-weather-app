@@ -27,5 +27,6 @@ test("prevents signal from aborting after timeout cleanup", () => {
     const {signal, timeoutCleanup} = createAbortSignal(undefined, 1000);
     expect(signal.aborted).toBe(false);
     timeoutCleanup();
+    jest.advanceTimersByTime(1001)
     expect(signal.aborted).toBe(false);
 });
