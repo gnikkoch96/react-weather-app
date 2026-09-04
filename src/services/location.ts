@@ -1,5 +1,6 @@
 import type { LocationData } from "../../types/location/types.js";
 import { z, ZodError } from "zod";
+import { createAbortSignal } from "../utils/abort.js";
 
 const locationSchema = z.object({
   id: z.number(),
@@ -24,7 +25,6 @@ export async function searchLocations(
   externalSignal?: AbortSignal,
 ) {
   const formattedCityName = encodeURIComponent(cityName.trim().toLowerCase());
-  const timeoutController = new AbortController();
 
   if (!formattedCityName) {
     throw new Error("City name cannot be empty");
@@ -32,18 +32,10 @@ export async function searchLocations(
 
   const url = `https://geocoding-api.open-meteo.com/v1/search?name=${formattedCityName}&count=5&language=en&format=json`;
 
-  const timer = setTimeout(() => {
-    timeoutController.abort();
-  }, 10000);
-
-  const signals = [timeoutController.signal, externalSignal].filter(
-    (signal): signal is AbortSignal => signal !== undefined,
-  );
-
-  const combinedSignal = AbortSignal.any(signals);
+  const {signal, timeoutCleanup} = createAbortSignal(externalSignal);
 
   try {
-    const response = await fetch(url, { signal: combinedSignal });
+    const response = await fetch(url, { signal: signal });
 
     if (!response.ok) {
       console.error("Location API request failed:", response.status);
@@ -85,6 +77,6 @@ export async function searchLocations(
     console.error("Unexpected Error: ", error);
     throw new Error("Something went wrong, please try again later.");
   } finally {
-    clearTimeout(timer);
+    timeoutCleanup();
   }
 }
