@@ -89,9 +89,44 @@ test("handle unexpected error", async () => {
       weatherRequest.temperatureUnit,
       weatherRequest.speedUnit,
     ),
-  ).rejects.toThrow(
-    "Something went wrong, please try again later.",
-  );
+  ).rejects.toThrow("Something went wrong, please try again later.");
 
   expect(timeoutCleanup).toHaveBeenCalled();
+});
+
+test("successful weather data response", async () => {
+  const mockResponse = {
+    current: {
+      time: "timestamp",
+      interval: 1,
+      temperature_2m: 32,
+      relative_humidity_2m: 53,
+      is_day: 0,
+      wind_speed_10m: 13,
+      weather_code: 4,
+    },
+  };
+
+  const expectedResponse = {
+    time: "timestamp",
+    interval: 1,
+    temperature: 32,
+    relative_humidity: 53,
+    is_day: 0,
+    wind_speed: 13,
+    weather_code: 4,
+  };
+
+  jest.spyOn(globalThis, "fetch").mockResolvedValue({
+    ok: true,
+    json: async () => mockResponse,
+  } as Response);
+
+  const weatherData = await getWeather(
+    weatherRequest.coordinates,
+    weatherRequest.temperatureUnit,
+    weatherRequest.speedUnit,
+  );
+
+  expect(weatherData).toEqual(expectedResponse);
 });
