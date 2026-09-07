@@ -41,4 +41,38 @@ test("handle malformed API data", async () => {
   );
 });
 
+test("successfully returned LocationData", async () => {
+  const mockResponse = {
+    results: [
+      {
+        id: 123,
+        name: "Los Angeles",
+        latitude: 34,
+        longitude: -118,
+        country: "United States",
+        admin1: "California",
+        admin2: "Los Angeles County",
+      },
+    ],
+  };
 
+  const expectedLocationData = [
+    {
+      id: 123,
+      name: "Los Angeles",
+      latitude: 34,
+      longitude: -118,
+      country: "United States",
+      state: "California",
+      county: "Los Angeles County",
+    },
+  ];
+
+  jest.spyOn(globalThis, "fetch").mockResolvedValue({
+    ok: true,
+    json: async () => mockResponse,
+  } as Response);
+
+  const locationData = await searchLocations("Los Angeles");
+  expect(locationData).toEqual(expectedLocationData);
+});
