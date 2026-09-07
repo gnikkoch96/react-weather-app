@@ -76,3 +76,13 @@ test("successfully returned LocationData", async () => {
   const locationData = await searchLocations("Los Angeles");
   expect(locationData).toEqual(expectedLocationData);
 });
+
+test("handles an aborted request", async () => {
+  jest.spyOn(globalThis, "fetch").mockRejectedValue(
+    new DOMException("The operation was aborted.", "AbortError"),
+  );
+
+  await expect(searchLocations("Los Angeles")).rejects.toThrow(
+    "The location request took too long and was canceled. Please try again.",
+  );
+});
