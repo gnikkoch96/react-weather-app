@@ -54,6 +54,8 @@ test("handle malformed API data", async () => {
   ).rejects.toThrow(
     "Something went wrong with fetching weather. Please try again later.",
   );
+
+  expect(timeoutCleanup).toHaveBeenCalled();
 });
 
 test("handle aborted request", async () => {
