@@ -1,5 +1,19 @@
 import { jest } from "@jest/globals";
-import { searchLocations } from "../services/location.js";
+
+const timeoutCleanup = jest.fn();
+
+jest.unstable_mockModule("../utils/abort.js", () => ({
+  createAbortSignal: jest.fn(() => ({
+    signal: new AbortController().signal,
+    timeoutCleanup,
+  })),
+}));
+
+const  { searchLocations } = await import("../services/location.js");
+
+beforeEach(() => {
+  timeoutCleanup.mockClear();
+});
 
 test("makes a correctly formatted request when searching for a city", async () => {
   const mockResponse = {
@@ -75,6 +89,7 @@ test("successfully returned LocationData", async () => {
 
   const locationData = await searchLocations("Los Angeles");
   expect(locationData).toEqual(expectedLocationData);
+  expect(timeoutCleanup).toHaveBeenCalled();
 });
 
 test("handles an aborted request", async () => {
