@@ -77,3 +77,21 @@ test("handle aborted request", async () => {
 
   expect(timeoutCleanup).toHaveBeenCalled();
 });
+
+test("handle unexpected error", async () => {
+  jest
+    .spyOn(globalThis, "fetch")
+    .mockRejectedValue(new Error("Unexpected error has occured"));
+
+  await expect(
+    getWeather(
+      weatherRequest.coordinates,
+      weatherRequest.temperatureUnit,
+      weatherRequest.speedUnit,
+    ),
+  ).rejects.toThrow(
+    "Something went wrong, please try again later.",
+  );
+
+  expect(timeoutCleanup).toHaveBeenCalled();
+});
