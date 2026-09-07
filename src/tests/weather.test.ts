@@ -1,5 +1,4 @@
 import { jest } from "@jest/globals";
-import { getWeather } from "../services/weather.js";
 import type { SpeedUnit, TemperatureUnit } from "../../types/weather/types.js";
 
 // Jest's ESM module mocking requires the mock to be registered before
@@ -13,6 +12,8 @@ jest.unstable_mockModule("../utils/abort.js", () => ({
     timeoutCleanup,
   })),
 }));
+
+const { getWeather } = await import("../services/weather.js");
 
 const weatherRequest = {
   coordinates: {
@@ -53,4 +54,24 @@ test("handle malformed API data", async () => {
   ).rejects.toThrow(
     "Something went wrong with fetching weather. Please try again later.",
   );
+});
+
+test("handle aborted request", async () => {
+  jest
+    .spyOn(globalThis, "fetch")
+    .mockRejectedValue(
+      new DOMException("The operation was aborted.", "AbortError"),
+    );
+
+  await expect(
+    getWeather(
+      weatherRequest.coordinates,
+      weatherRequest.temperatureUnit,
+      weatherRequest.speedUnit,
+    ),
+  ).rejects.toThrow(
+    "The weather request took too long and was canceled. Please try again.",
+  );
+
+  expect(timeoutCleanup).toHaveBeenCalled();
 });
