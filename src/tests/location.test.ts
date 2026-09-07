@@ -1,5 +1,8 @@
 import { jest } from "@jest/globals";
 
+// Jest's ESM module mocking requires the mock to be registered before
+// the module under test is imported. A dynamic import ensures searchLocations
+// receives the mocked createAbortSignal instead of the real implementation.
 const timeoutCleanup = jest.fn();
 
 jest.unstable_mockModule("../utils/abort.js", () => ({
