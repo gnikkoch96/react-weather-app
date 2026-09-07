@@ -14,7 +14,31 @@ test("makes a correctly formatted request when searching for a city", async () =
   await searchLocations(" Los Angeles ");
 
   expect(fetch).toHaveBeenCalledWith(
-    expect.stringContaining('los%20angeles'),
-    expect.anything()
+    expect.stringContaining("los%20angeles"),
+    expect.anything(),
   );
 });
+
+test("handle malformed API data", async () => {
+  const mockResponse = {
+    results: [
+      {
+        id: "not-a-number",
+        name: "Los Angeles",
+        latitude: 34,
+        longitude: -118,
+      },
+    ],
+  };
+
+  jest.spyOn(globalThis, "fetch").mockResolvedValue({
+    ok: true,
+    json: async () => mockResponse,
+  } as Response);
+
+  await expect(searchLocations("Los Angeles")).rejects.toThrow(
+    "Something went wrong with fetching location. Please try again later.",
+  );
+});
+
+
