@@ -9,7 +9,7 @@ jest.unstable_mockModule("../utils/abort.js", () => ({
   })),
 }));
 
-const  { searchLocations } = await import("../services/location.js");
+const { searchLocations } = await import("../services/location.js");
 
 beforeEach(() => {
   timeoutCleanup.mockClear();
@@ -53,6 +53,8 @@ test("handle malformed API data", async () => {
   await expect(searchLocations("Los Angeles")).rejects.toThrow(
     "Something went wrong with fetching location. Please try again later.",
   );
+
+  expect(timeoutCleanup).toHaveBeenCalled();
 });
 
 test("successfully returned LocationData", async () => {
@@ -102,6 +104,8 @@ test("handles an aborted request", async () => {
   await expect(searchLocations("Los Angeles")).rejects.toThrow(
     "The location request took too long and was canceled. Please try again.",
   );
+
+  expect(timeoutCleanup).toHaveBeenCalled();
 });
 
 test("handle unexpected error", async () => {
@@ -112,4 +116,5 @@ test("handle unexpected error", async () => {
   await expect(searchLocations("Los Angeles")).rejects.toThrow(
     "Something went wrong, please try again later.",
   );
+  expect(timeoutCleanup).toHaveBeenCalled();
 });
