@@ -32,7 +32,7 @@ export async function searchLocations(
 
   const url = `https://geocoding-api.open-meteo.com/v1/search?name=${formattedCityName}&count=5&language=en&format=json`;
 
-  const {signal, timeoutCleanup} = createAbortSignal(externalSignal);
+  const { signal, timeoutCleanup } = createAbortSignal(externalSignal);
 
   try {
     const response = await fetch(url, { signal: signal });
@@ -72,6 +72,10 @@ export async function searchLocations(
       throw new Error(
         "The location request took too long and was canceled. Please try again.",
       );
+    }
+
+    if (error instanceof Error && error.message) {
+      throw new Error(error.message);
     }
 
     console.error("Unexpected Error: ", error);

@@ -114,10 +114,22 @@ test("handles an aborted request", async () => {
 test("handle unexpected error", async () => {
   jest
     .spyOn(globalThis, "fetch")
-    .mockRejectedValue(new Error("Unexpected error occurred"));
+    .mockRejectedValue(new Error());
 
   await expect(searchLocations("Los Angeles")).rejects.toThrow(
     "Something went wrong, please try again later.",
   );
   expect(timeoutCleanup).toHaveBeenCalled();
+});
+
+test("handle API error return status", async () => {
+  jest.spyOn(globalThis, "fetch").mockResolvedValue({
+    ok: false,
+  } as Response);
+
+  await expect(
+    searchLocations('Los Angeles')
+  ).rejects.toThrow(
+    "Something went wrong reaching the location server. Please try again later.",
+  );
 });
