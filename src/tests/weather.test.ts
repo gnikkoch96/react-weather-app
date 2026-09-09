@@ -81,7 +81,7 @@ test("handle aborted request", async () => {
 test("handle unexpected error", async () => {
   jest
     .spyOn(globalThis, "fetch")
-    .mockRejectedValue(new Error("Unexpected error has occured"));
+    .mockRejectedValue(new Error());
 
   await expect(
     getWeather(
@@ -129,4 +129,20 @@ test("successful weather data response", async () => {
   );
 
   expect(weatherData).toEqual(expectedResponse);
+});
+
+test("handle API error return status", async () => {
+  jest.spyOn(globalThis, "fetch").mockResolvedValue({
+    ok: false,
+  } as Response);
+
+  await expect(
+    getWeather(
+      weatherRequest.coordinates,
+      weatherRequest.temperatureUnit,
+      weatherRequest.speedUnit,
+    ),
+  ).rejects.toThrow(
+    "Something went wrong when trying to reach the weather server. Please try again later.",
+  );
 });
