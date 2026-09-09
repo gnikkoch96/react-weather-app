@@ -1,4 +1,8 @@
-import type { Coordinates, SpeedUnit, TemperatureUnit } from "../../types/weather/types.js";
+import type {
+  Coordinates,
+  SpeedUnit,
+  TemperatureUnit,
+} from "../../types/weather/types.js";
 import { z, ZodError } from "zod";
 import { createAbortSignal } from "../utils/abort.js";
 
@@ -73,6 +77,10 @@ export async function getWeather(
       throw new Error(
         "The weather request took too long and was canceled. Please try again.",
       );
+    }
+
+    if (error instanceof Error && error.message) {
+      throw new Error(error.message);
     }
 
     console.error("Unexpected Error: ", error);
