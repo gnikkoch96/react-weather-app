@@ -1,5 +1,6 @@
 import { test as setup, expect } from "@playwright/test";
 
+// Logs the user in before running the other E2E tests
 setup("authenticate", async ({ page }) => {
   // go to login page
   await page.goto("http://localhost:5173/weather");
