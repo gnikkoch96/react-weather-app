@@ -104,6 +104,7 @@ export default function Modal({
       className={`fixed inset-0 ${isVisible ? "pointer-events-auto" : "pointer-events-none"} min-w-screen min-h-screen flex justify-center items-center bg-transparent`}
       role="dialog"
       aria-modal={true}
+      aria-labelledby="modal-title"
       ref={modalRef}
     >
       {/* Backdrop */}
@@ -119,7 +120,7 @@ export default function Modal({
       >
         {/* Settings Label and X button */}
         <div className="w-full flex justify-between">
-          <span>{title}</span>
+          <span id='modal-title'>{title}</span>
           <button
             onClick={onClose}
             className="cursor-pointer rounded transition-bg duration-150 ease-out hover:bg-gray-200"
