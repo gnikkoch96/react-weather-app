@@ -10,8 +10,7 @@ import Modal from "./common/Modal.js";
   Responsibility:
   1. Manage and render the settings configuration and popup visibility.
 */
-export default function SettingsPopup() {
-  const isVisible = useAppSelector((state) => state.settingsConfig.isVisible);
+export default function SettingsPopup({isOpen}: {isOpen: boolean}) {
   const dispatch = useDispatch();
 
   const globalTemperatureUnit = useAppSelector(
@@ -52,7 +51,7 @@ export default function SettingsPopup() {
   return (
     <Modal
       title="Settings"
-      isVisible={isVisible}
+      isVisible={isOpen}
       onClose={handleClose}
       onAfterClose={handleAfterClose}
     >

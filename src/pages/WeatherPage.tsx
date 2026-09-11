@@ -34,6 +34,10 @@ export default function WeatherPage() {
   );
   const speedUnit = useAppSelector((state) => state.weatherConfig.speedUnit);
 
+  const isSettingsVisible = useAppSelector(
+    (state) => state.settingsConfig.isVisible,
+  );
+
   const {
     error: locationError,
     isLoading: locationLoading,
@@ -102,7 +106,7 @@ export default function WeatherPage() {
         />
       ) : null}
 
-      <SettingsPopup />
+      {isSettingsVisible && <SettingsPopup isOpen={isSettingsVisible} />}
     </main>
   );
 }
