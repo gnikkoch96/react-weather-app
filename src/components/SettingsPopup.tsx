@@ -8,7 +8,7 @@ import Modal from "./common/Modal.js";
 
 /*
   Responsibility:
-  1. Manage and render the settings configuration and popup visibility.
+  1. Manage and render the settings configuration
 */
 export default function SettingsPopup({isOpen}: {isOpen: boolean}) {
   const dispatch = useDispatch();
