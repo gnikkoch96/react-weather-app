@@ -47,6 +47,7 @@ export default function SearchLocationBar({
       <button
         className="flex justify-center items-center absolute p-0.5 rounded-2xl bg-primary text-white right-1.5 top-2 hover:cursor-pointer transition duration-100 ease-in "
         disabled={locationLoading}
+        aria-label="Search Location"
         type="submit"
       >
         {locationLoading ? <LoaderCircle className='animate-spin' size={20} /> : <Search size={20} />}
