@@ -84,7 +84,7 @@ export default function WeatherPage() {
         onSearch={fetchLocationData}
       />
 
-      {locationData && (
+      {openLocationPopup && locationData && (
         <LocationsPopup
           isOpen={openLocationPopup}
           onClose={() => setOpenLocationPopup(false)}
