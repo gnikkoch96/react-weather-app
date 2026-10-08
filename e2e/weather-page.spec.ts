@@ -23,6 +23,27 @@ test.beforeEach(async ({ page }) => {
       });
     },
   );
+
+  await page.route(
+    "https://api.open-meteo.com/v1/forecast?*",
+    async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          current: {
+            time: "2026-10-07T12:00",
+            interval: 900,
+            temperature_2m: 25,
+            relative_humidity_2m: 60,
+            is_day: 1,
+            wind_speed_10m: 10,
+            weather_code: 0,
+          },
+        }),
+      });
+    },
+  );
 });
 
 test("search location and view weather", async ({ page }) => {
